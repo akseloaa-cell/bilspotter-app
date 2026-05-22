@@ -164,5 +164,9 @@ if ("serviceWorker" in navigator) {
     }, 30000);
   });
 }
-  
+
+navigator.serviceWorker.addEventListener("controllerchange", () => {
+  alert("Ny versjon tilgjengelig! Last siden på nytt 🔄");
+});
+
 render();
