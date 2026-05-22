@@ -9,6 +9,20 @@ const searchInput = document.getElementById("searchInput");
 const stats = document.getElementById("stats");
 
 let cars = JSON.parse(localStorage.getItem("cars")) || [];
+self.addEventListener("install", (e) => {
+  e.waitUntil(
+    caches.open("bilspotter-v1").then((cache) => {
+      return cache.addAll([
+        "./",
+        "./index.html",
+        "./style.css",
+        "./script.js",
+        "./manifest.json"
+      ]);
+    })
+  );
+});
+
 
 function saveCars() {
   localStorage.setItem("cars", JSON.stringify(cars));
@@ -121,5 +135,9 @@ plateInput.addEventListener("keypress", (e) => {
 sortSelect.addEventListener("change", render);
 
 searchInput.addEventListener("input", render);
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
 
 render();
