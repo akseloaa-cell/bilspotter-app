@@ -1,0 +1,20 @@
+{
+  "name": "Bilspotter",
+  "short_name": "Bilspotter",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#111827",
+  "theme_color": "#111827",
+  "icons": [
+    {
+      "src": "b98ab4e3-b4bf-417e-a76a-b7bb691b1da5.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "b98ab4e3-b4bf-417e-a76a-b7bb691b1da5.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
