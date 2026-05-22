@@ -132,6 +132,12 @@ plateInput.addEventListener("keypress", (e) => {
   }
 });
 
+function extractNumber(plate) {
+  const match = plate.match(/\d+/g);
+  if (!match) return 0;
+  return parseInt(match.join(""), 10);
+}
+
 sortSelect.addEventListener("change", render);
 
 searchInput.addEventListener("input", render);
