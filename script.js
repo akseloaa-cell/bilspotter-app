@@ -70,6 +70,33 @@ function formatDate(timestamp) {
   return date.toLocaleString("no-NO");
 }
 
+function renderLastCar() {
+
+  const lastCarDiv = document.getElementById("lastCar");
+
+  if (!lastCarDiv) return;
+
+  if (cars.length === 0) {
+    lastCarDiv.innerHTML = "";
+    return;
+  }
+
+  // 🔥 finn nyeste bil
+  const last = [...cars].sort((a, b) => b.createdAt - a.createdAt)[0];
+
+  lastCarDiv.innerHTML = `
+    <div class="last-plate">${last.plate}</div>
+
+    <div class="last-meta">
+      Lagt til ${formatDate(last.createdAt)}
+    </div>
+
+    <div class="last-meta">
+      Registrert ${last.count || 1} ganger
+    </div>
+  `;
+}
+
 function render() {
 
   let filtered = [...cars];
