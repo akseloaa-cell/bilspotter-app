@@ -71,7 +71,7 @@ function formatDate(timestamp) {
 function render() {
 
   let filtered = [...cars];
-
+  
   const search = searchInput.value.toLowerCase();
 
   if (search) {
@@ -112,6 +112,8 @@ if (sort === "numDesc") {
 
   filtered.forEach((car, index) => {
 
+    car.count = car.count || 1;
+    
     const div = document.createElement("div");
 
     div.className = "card";
