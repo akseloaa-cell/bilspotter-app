@@ -139,6 +139,7 @@ if (sort === "numDesc") {
 
     list.appendChild(div);
   });
+  
   function renderLastCar() {
   const lastCarDiv = document.getElementById("lastCar");
 
@@ -198,4 +199,4 @@ navigator.serviceWorker.addEventListener("controllerchange", () => {
 
 
 render();
-renderLastcas();
+renderLastCar();
