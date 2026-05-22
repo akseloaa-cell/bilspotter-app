@@ -2,63 +2,106 @@
 <html lang="no">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#111827">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
   <title>Bilspotter</title>
-<link rel="icon" type="image/png" href="b98ab4e3-b4bf-417e-a76a-b7bb691b1da5.png">
+
+  <!-- 📱 PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#111827" />
+
+  <!-- 🚗 App icon -->
+  <link
+    rel="icon"
+    type="image/png"
+    href="b98ab4e3-b4bf-417e-a76a-b7bb691b1da5.png"
+  />
+
+  <!-- 🎨 CSS -->
   <link rel="stylesheet" href="style.css" />
-  <meta name="theme-color" content="#111827">
-  
 </head>
+
 <body>
 
   <div class="app">
 
     <h1>🚗 Bilspotter</h1>
 
+    <!-- ➕ LEGG TIL -->
     <div class="top-bar">
+
       <input
         type="text"
         id="plateInput"
         placeholder="Skriv registreringsnummer..."
         maxlength="10"
+        autocapitalize="characters"
+        autocomplete="off"
+        spellcheck="false"
       />
 
-      <button id="addBtn">Legg til</button>
+      <button id="addBtn">
+        Legg til
+      </button>
+
     </div>
 
+    <!-- 🔍 SØK + SORTERING -->
     <div class="controls">
 
-     <input
-  type="text"
-  id="plateInput"
-  placeholder="Skriv registreringsnummer..."
-  maxlength="10"
-  autocapitalize="characters"
-  autocomplete="off"
-  spellcheck="false"
-/>
-      
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Søk..."
+      />
+
       <select id="sortSelect">
-        <option value="newest">Nyeste først</option>
-        <option value="oldest">Eldste først</option>
-        <option value="az">A → Å</option>
-        <option value="za">Å → A</option>
-        <option value="num">Nummer (stigende)</option>
-<option value="numDesc">Nummer (synkende)</option>
+
+        <option value="newest">
+          Nyeste først
+        </option>
+
+        <option value="oldest">
+          Eldste først
+        </option>
+
+        <option value="az">
+          A → Å
+        </option>
+
+        <option value="za">
+          Å → A
+        </option>
+
+        <option value="num">
+          Nummer (stigende)
+        </option>
+
+        <option value="numDesc">
+          Nummer (synkende)
+        </option>
+
       </select>
 
     </div>
 
+    <!-- 📊 STATS -->
     <div id="stats"></div>
 
+    <!-- 📱 SISTE BIL -->
     <div id="lastCar" class="last-card"></div>
-    
+
+    <!-- 🚗 LISTE -->
     <div id="list"></div>
 
   </div>
 
-  <script src="script.js"></script>
+  <!-- ⚡ JS -->
+  <script src="script.js" defer></script>
+
 </body>
 </html>
