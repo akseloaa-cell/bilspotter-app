@@ -34,11 +34,18 @@ function addCar() {
 
   if (!plate) return;
 
+  const existing = cars.find(c => c.plate === plate);
+
+if (existing) {
+  existing.count = (existing.count || 1) + 1;
+  existing.createdAt = Date.now();
+} else {
   cars.push({
     plate,
-    createdAt: Date.now()
+    createdAt: Date.now(),
+    count: 1
   });
-
+}
   saveCars();
 
   plateInput.value = "";
