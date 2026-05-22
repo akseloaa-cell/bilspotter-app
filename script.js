@@ -1,9 +1,5 @@
 const plateInput = document.getElementById("plateInput");
 
-plateInput.addEventListener("input", () => {
-  plateInput.value = plateInput.value.toUpperCase();
-});
-
 const addBtn = document.getElementById("addBtn");
 
 const list = document.getElementById("list");
@@ -235,6 +231,12 @@ if ("serviceWorker" in navigator) {
 navigator.serviceWorker.addEventListener("controllerchange", () => {
   alert("Ny versjon tilgjengelig! Last siden på nytt 🔄");
 });
+
+if (plateInput) {
+  plateInput.addEventListener("input", () => {
+    plateInput.value = plateInput.value.toUpperCase();
+  });
+}
 
 renderLastCar();
 render();
