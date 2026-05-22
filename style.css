@@ -12,18 +12,25 @@ body {
 .app {
   max-width: 700px;
   margin: auto;
-  padding: 20px;
+  padding: 16px;
 }
 
 h1 {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  font-size: 28px;
 }
 
 .top-bar {
   display: flex;
   gap: 10px;
   margin-bottom: 15px;
+}
+
+@media (max-width: 600px) {
+  .top-bar {
+    flex-direction: column;
+  }
 }
 
 .top-bar input {
@@ -34,9 +41,9 @@ input,
 select,
 button {
   padding: 14px;
-  border: none;
   border-radius: 12px;
   font-size: 16px;
+  width: 100%;
 }
 
 input,
@@ -62,6 +69,12 @@ button:hover {
   margin-bottom: 20px;
 }
 
+@media (max-width: 600px) {
+  .controls {
+    flex-direction: column;
+  }
+}
+
 .controls input {
   flex: 1;
 }
@@ -80,11 +93,24 @@ button:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
+}
+
+@media (max-width: 600px) {
+  .card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .delete-btn {
+    width: 100%;
+  }
 }
 
 .plate {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: bold;
+  word-break: break-word;
 }
 
 .time {
