@@ -232,12 +232,13 @@ navigator.serviceWorker.addEventListener("controllerchange", () => {
   alert("Ny versjon tilgjengelig! Last siden på nytt 🔄");
 });
 
+
+renderLastCar();
+render();
+renderLastCar();
+
 if (plateInput) {
   plateInput.addEventListener("input", () => {
     plateInput.value = plateInput.value.toUpperCase();
   });
 }
-
-renderLastCar();
-render();
-renderLastCar();
