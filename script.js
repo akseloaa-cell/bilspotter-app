@@ -1,4 +1,9 @@
 const plateInput = document.getElementById("plateInput");
+
+plateInput.addEventListener("input", () => {
+  plateInput.value = plateInput.value.toUpperCase();
+});
+
 const addBtn = document.getElementById("addBtn");
 
 const list = document.getElementById("list");
