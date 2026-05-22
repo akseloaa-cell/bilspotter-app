@@ -4,110 +4,126 @@
 
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #111827;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #1b2a4a, #0b1220 60%);
   color: white;
 }
 
 /* 📱 App container */
 .app {
-  max-width: 700px;
+  max-width: 720px;
   margin: auto;
-  padding: 16px;
+  padding: 18px;
 }
 
-/* 🧠 Tittel */
+/* 🍏 Header (iOS style) */
 h1 {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 28px;
+  font-size: 34px;
+  font-weight: 700;
+  margin: 10px 0 20px;
+  letter-spacing: -0.5px;
 }
 
-/* 🔝 Top bar */
-.top-bar {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-/* 🔍 Controls */
+/* 🔝 Top + controls layout */
+.top-bar,
 .controls {
   display: flex;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 14px;
 }
 
-/* 📱 Inputs / buttons base (PC-safe) */
+/* 💎 Inputs + selects (glass iOS style) */
 input,
 select,
 button {
   padding: 14px;
-  border-radius: 12px;
   font-size: 16px;
+  border-radius: 14px;
+  border: none;
+  outline: none;
 }
 
+/* 🌫️ glass inputs */
 input,
 select {
-  background: #1f2937;
+  background: rgba(255, 255, 255, 0.08);
   color: white;
-  border: none;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
-/* 🔘 Button */
+/* placeholder */
+input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* 🔵 iOS button */
 button {
-  background: #2563eb;
+  background: #0a84ff;
   color: white;
+  font-weight: 600;
   cursor: pointer;
-  font-weight: bold;
-  border: none;
+  transition: 0.15s ease;
 }
 
-button:hover {
-  opacity: 0.9;
+button:active {
+  transform: scale(0.96);
+  opacity: 0.85;
 }
 
-/* 📊 Stats */
+/* 📊 stats */
 #stats {
-  margin-bottom: 15px;
-  color: #cbd5e1;
+  margin: 10px 0 15px;
+  color: rgba(255, 255, 255, 0.7);
 }
 
-/* 🚗 Card */
+/* 🚗 card (iOS glass card) */
 .card {
-  background: #1f2937;
-  padding: 15px;
-  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  padding: 14px;
+  border-radius: 18px;
   margin-bottom: 12px;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
+
+  transition: 0.2s ease;
 }
 
-/* 🚘 Plate */
+.card:active {
+  transform: scale(0.99);
+}
+
+/* 🚘 plate text */
 .plate {
-  font-size: 22px;
-  font-weight: bold;
-  word-break: break-word;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
-/* 🕒 Time */
+/* 🕒 time text */
 .time {
-  font-size: 13px;
-  color: #94a3b8;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
   margin-top: 4px;
 }
 
-/* 🗑️ Delete */
+/* 🗑️ delete button (iOS destructive) */
 .delete-btn {
-  background: #dc2626;
-  padding: 10px 14px;
-  border-radius: 10px;
-  border: none;
+  background: rgba(255, 59, 48, 0.9);
+  color: white;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-weight: 600;
 }
 
-/* 📱 MOBIL FIX */
+/* 📱 MOBILE (iOS app feel) */
 @media (max-width: 600px) {
 
   .top-bar,
@@ -124,14 +140,19 @@ button:hover {
   .card {
     flex-direction: column;
     align-items: flex-start;
+    gap: 10px;
   }
 
   .delete-btn {
     width: 100%;
   }
+
+  h1 {
+    font-size: 30px;
+  }
 }
 
-/* 🖥️ PC FIX (viktig for at det ikke blir “stygt”) */
+/* 🖥️ DESKTOP polish */
 @media (min-width: 601px) {
 
   .top-bar input,
