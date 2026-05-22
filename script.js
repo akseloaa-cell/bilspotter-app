@@ -139,6 +139,24 @@ if (sort === "numDesc") {
 
     list.appendChild(div);
   });
+  function renderLastCar() {
+  const lastCarDiv = document.getElementById("lastCar");
+
+  if (cars.length === 0) {
+    lastCarDiv.innerHTML = "";
+    return;
+  }
+
+  const last = cars[cars.length - 1];
+
+  lastCarDiv.innerHTML = `
+    <div class="last-plate">${last.plate}</div>
+    <div class="last-meta">
+      Lagt til ${formatDate(last.createdAt)} •
+      lagt til ${last.count || 1} ganger
+    </div>
+  `;
+}
 }
 
 addBtn.addEventListener("click", addCar);
@@ -178,4 +196,5 @@ navigator.serviceWorker.addEventListener("controllerchange", () => {
   alert("Ny versjon tilgjengelig! Last siden på nytt 🔄");
 });
 
+renderLastCar();
 render();
