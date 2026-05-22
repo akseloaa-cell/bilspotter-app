@@ -91,6 +91,14 @@ function render() {
     filtered.sort((a, b) => b.plate.localeCompare(a.plate));
   }
 
+  if (sort === "num") {
+  filtered.sort((a, b) => extractNumber(a.plate) - extractNumber(b.plate));
+}
+
+if (sort === "numDesc") {
+  filtered.sort((a, b) => extractNumber(b.plate) - extractNumber(a.plate));
+}
+  
   stats.innerText = `Antall registreringsnummer: ${filtered.length}`;
 
   list.innerHTML = "";
