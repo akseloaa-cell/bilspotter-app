@@ -139,6 +139,9 @@ if (sort === "numDesc") {
 
     list.appendChild(div);
   });
+
+}
+
   
   function renderLastCar() {
   const lastCarDiv = document.getElementById("lastCar");
@@ -157,7 +160,6 @@ if (sort === "numDesc") {
       lagt til ${last.count || 1} ganger
     </div>
   `;
-}
 }
 
 addBtn.addEventListener("click", addCar);
