@@ -81,8 +81,9 @@ function renderLastCar() {
     return;
   }
 
-  // 🔥 finn nyeste bil
-  const last = [...cars].sort((a, b) => b.createdAt - a.createdAt)[0];
+  const last = cars.reduce((latest, car) => {
+    return car.createdAt > latest.createdAt ? car : latest;
+  });
 
   lastCarDiv.innerHTML = `
     <div class="last-plate">${last.plate}</div>
@@ -168,7 +169,9 @@ if (sort === "numDesc") {
 
     list.appendChild(div);
   });
-
+  
+renderLastCar();
+  
 }
 
   
