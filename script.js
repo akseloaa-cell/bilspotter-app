@@ -34,29 +34,31 @@ function addCar() {
 
   if (!plate) return;
 
+  // 🔍 Finn eksisterende bil
   const existing = cars.find(c => c.plate === plate);
 
-if (existing) {
-  existing.count = (existing.count || 1) + 1;
-  existing.createdAt = Date.now();
-} else {
-  cars.push({
-    plate,
-    createdAt: Date.now(),
-    count: 1
-  });
-}
+  if (existing) {
+
+    // ➕ Øk antall
+    existing.count = (existing.count || 1) + 1;
+
+    // 🕒 Oppdater tidspunkt
+    existing.createdAt = Date.now();
+
+  } else {
+
+    // 🆕 Ny bil
+    cars.push({
+      plate,
+      createdAt: Date.now(),
+      count: 1
+    });
+
+  }
+
   saveCars();
 
   plateInput.value = "";
-
-  render();
-}
-
-function deleteCar(id) {
-  cars.splice(id, 1);
-
-  saveCars();
 
   render();
 }
