@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Bilspotter</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app">
+
+    <h1>🚗 Bilspotter</h1>
+
+    <div class="top-bar">
+      <input
+        type="text"
+        id="plateInput"
+        placeholder="Skriv registreringsnummer..."
+        maxlength="10"
+      />
+
+      <button id="addBtn">Legg til</button>
+    </div>
+
+    <div class="controls">
+
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Søk..."
+      />
+
+      <select id="sortSelect">
+        <option value="newest">Nyeste først</option>
+        <option value="oldest">Eldste først</option>
+        <option value="az">A → Å</option>
+        <option value="za">Å → A</option>
+      </select>
+
+    </div>
+
+    <div id="stats"></div>
+
+    <div id="list"></div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
