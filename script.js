@@ -67,7 +67,6 @@ function saveCars() {
 
         alert(`🏆 Quest fullført: ${quest.name}`);
       }
-    }
   });
 
   saveQuests();
