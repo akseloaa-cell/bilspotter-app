@@ -228,3 +228,76 @@ select {
   font-size: 13px;
   color: rgba(255,255,255,0.75);
 }
+
+/* 🎮 GAME UI */
+.xp-fill {
+  height: 100%;
+  width: 0%;
+
+  background: linear-gradient(
+    90deg,
+    #ffd60a,
+    #ff9f0a
+  );
+
+  border-radius: 999px;
+
+  transition: width 0.35s ease;
+}
+
+/* 📅 QUESTS */
+.quests-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+
+  padding: 16px;
+  border-radius: 20px;
+
+  backdrop-filter: blur(16px);
+}
+
+.quests-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.weekly-title {
+  margin-top: 18px;
+}
+
+.quest {
+  background: rgba(255,255,255,0.05);
+
+  border-radius: 14px;
+
+  padding: 12px;
+
+  margin-bottom: 10px;
+}
+
+.quest-name {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.quest-progress {
+  font-size: 13px;
+  opacity: 0.7;
+  margin-bottom: 6px;
+}
+
+.quest-bar {
+  height: 8px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.quest-fill {
+  height: 100%;
+  background: #0a84ff;
+  width: 0%;
+
+  transition: width 0.3s ease;
+}
