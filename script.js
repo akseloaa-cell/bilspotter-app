@@ -66,13 +66,11 @@ function saveCars() {
         addXP(quest.reward);
 
         alert(`🏆 Quest fullført: ${quest.name}`);
-      }
-  });
 
   saveQuests();
 
   renderQuests();
-}
+      }
 
 /* 📱 RENDER QUESTS */
 function renderQuests() {
