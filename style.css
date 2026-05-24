@@ -254,6 +254,7 @@ select {
   border-radius: 20px;
 
   backdrop-filter: blur(16px);
+  margin-bottom: 16px;
 }
 
 .quests-title {
