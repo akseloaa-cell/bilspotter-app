@@ -10,9 +10,131 @@ const stats = document.getElementById("stats");
 
 let cars = JSON.parse(localStorage.getItem("cars")) || [];
 
+/* 🎮 PLAYER DATA */
+let player = JSON.parse(localStorage.getItem("player")) || {
+  xp: 0,
+  level: 1
+};
+
+/* 📅 QUESTS */
+let quests = JSON.parse(localStorage.getItem("quests")) || {
+
+  daily: [
+    {
+      id: "daily1",
+      name: "Spot 5 biler",
+      goal: 5,
+      progress: 0,
+      reward: 50,
+      completed: false
+    },
+
+    {
+      id: "daily2",
+      name: "Spot 10 biler",
+      goal: 10,
+      progress: 0,
+      reward: 100,
+      completed: false
+    }
+  ],
+
+  weekly: [
+    {
+      id: "weekly1",
+      name: "Spot 50 biler",
+      goal: 50,
+      progress: 0,
+      reward: 500,
+      completed: false
+    }
+  ]
+};
+
 /* 💾 SAVE */
 function saveCars() {
   localStorage.setItem("cars", JSON.stringify(cars));
+}
+
+/* 💾 SAVE PLAYER */
+      quest.progress++;
+
+      if (quest.progress >= quest.goal) {
+
+        quest.completed = true;
+
+        addXP(quest.reward);
+
+        alert(`🏆 Quest fullført: ${quest.name}`);
+      }
+    }
+  });
+
+  saveQuests();
+
+  renderQuests();
+}
+
+/* 📱 RENDER QUESTS */
+function renderQuests() {
+
+  const dailyEl = document.getElementById("dailyQuests");
+  const weeklyEl = document.getElementById("weeklyQuests");
+
+  dailyEl.innerHTML = "";
+  weeklyEl.innerHTML = "";
+
+  quests.daily.forEach((quest) => {
+
+    const percent = (quest.progress / quest.goal) * 100;
+
+    dailyEl.innerHTML += `
+      <div class="quest">
+
+        <div class="quest-name">
+          ${quest.completed ? "✅" : "🎯"} ${quest.name}
+        </div>
+
+        <div class="quest-progress">
+          ${quest.progress} / ${quest.goal}
+        </div>
+
+        <div class="quest-bar">
+          <div
+            class="quest-fill"
+            style="width:${percent}%"
+          ></div>
+        </div>
+
+      </div>
+    `;
+  });
+
+  quests.weekly.forEach((quest) => {
+
+    const percent = (quest.progress / quest.goal) * 100;
+
+    weeklyEl.innerHTML += `
+      <div class="quest">
+
+        <div class="quest-name">
+          ${quest.completed ? "✅" : "🏁"} ${quest.name}
+        </div>
+
+        <div class="quest-progress">
+          ${quest.progress} / ${quest.goal}
+        </div>
+
+        <div class="quest-bar">
+          <div
+            class="quest-fill"
+            style="width:${percent}%"
+          ></div>
+        </div>
+
+      </div>
+    `;
+  });
 }
 
 /* 🔢 HENT TALL FRA SKILT */
@@ -57,7 +179,9 @@ function addCar() {
   }
 
   saveCars();
-
+  addXP(10);
+updateQuests();
+  
   plateInput.value = "";
 
   render();
@@ -252,3 +376,5 @@ if ("serviceWorker" in navigator) {
 
 /* 🚀 START */
 render();
+renderXP();
+renderQuests();
