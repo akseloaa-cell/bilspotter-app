@@ -8,9 +8,10 @@ const searchInput = document.getElementById("searchInput");
 
 const stats = document.getElementById("stats");
 
+/* 🚗 CARS */
 let cars = JSON.parse(localStorage.getItem("cars")) || [];
 
-/* 🎮 PLAYER DATA */
+/* 🎮 PLAYER */
 let player = JSON.parse(localStorage.getItem("player")) || {
   xp: 0,
   level: 1
@@ -56,34 +57,118 @@ function saveCars() {
   localStorage.setItem("cars", JSON.stringify(cars));
 }
 
-/* 💾 SAVE PLAYER */
-      quest.progress++;
+function savePlayer() {
+  localStorage.setItem("player", JSON.stringify(player));
+}
 
-      if (quest.progress >= quest.goal) {
+function saveQuests() {
+  localStorage.setItem("quests", JSON.stringify(quests));
+}
 
-        quest.completed = true;
+/* 🔢 NUMBER SORT */
+function extractNumber(plate) {
 
-        addXP(quest.reward);
+  const match = plate.match(/\d+/g);
 
-        alert(`🏆 Quest fullført: ${quest.name}`);
+  if (!match) return 0;
+
+  return parseInt(match.join(""), 10);
+}
+
+/* 🕒 DATE */
+function formatDate(timestamp) {
+
+  const date = new Date(timestamp);
+
+  return date.toLocaleString("no-NO");
+}
+
+/* ⭐ XP */
+function addXP(amount) {
+
+  player.xp += amount;
+
+  const needed = player.level * 100;
+
+  if (player.xp >= needed) {
+
+    player.xp -= needed;
+
+    player.level++;
+
+    alert(`🎉 Level Up! Du er nå level ${player.level}`);
+  }
+
+  savePlayer();
+
+  renderXP();
+}
+
+/* 📊 XP UI */
+function renderXP() {
+
+  const levelEl = document.getElementById("level");
+  const xpText = document.getElementById("xpText");
+  const xpFill = document.getElementById("xpFill");
+
+  if (!levelEl || !xpText || !xpFill) return;
+
+  const needed = player.level * 100;
+
+  levelEl.innerText = player.level;
+
+  xpText.innerText =
+    `${player.xp} / ${needed} XP`;
+
+  xpFill.style.width =
+    `${(player.xp / needed) * 100}%`;
+}
+
+/* 📅 UPDATE QUESTS */
+function updateQuests() {
+
+  [...quests.daily, ...quests.weekly]
+    .forEach((quest) => {
+
+      if (!quest.completed) {
+
+        quest.progress++;
+
+        if (quest.progress >= quest.goal) {
+
+          quest.completed = true;
+
+          addXP(quest.reward);
+
+          alert(`🏆 Quest fullført: ${quest.name}`);
+        }
+      }
+
+    });
 
   saveQuests();
 
   renderQuests();
-      }
+}
 
 /* 📱 RENDER QUESTS */
 function renderQuests() {
 
-  const dailyEl = document.getElementById("dailyQuests");
-  const weeklyEl = document.getElementById("weeklyQuests");
+  const dailyEl =
+    document.getElementById("dailyQuests");
+
+  const weeklyEl =
+    document.getElementById("weeklyQuests");
+
+  if (!dailyEl || !weeklyEl) return;
 
   dailyEl.innerHTML = "";
   weeklyEl.innerHTML = "";
 
   quests.daily.forEach((quest) => {
 
-    const percent = (quest.progress / quest.goal) * 100;
+    const percent =
+      (quest.progress / quest.goal) * 100;
 
     dailyEl.innerHTML += `
       <div class="quest">
@@ -109,7 +194,8 @@ function renderQuests() {
 
   quests.weekly.forEach((quest) => {
 
-    const percent = (quest.progress / quest.goal) * 100;
+    const percent =
+      (quest.progress / quest.goal) * 100;
 
     weeklyEl.innerHTML += `
       <div class="quest">
@@ -134,34 +220,21 @@ function renderQuests() {
   });
 }
 
-/* 🔢 HENT TALL FRA SKILT */
-function extractNumber(plate) {
-  const match = plate.match(/\d+/g);
-
-  if (!match) return 0;
-
-  return parseInt(match.join(""), 10);
-}
-
-/* 🕒 FORMAT DATE */
-function formatDate(timestamp) {
-  const date = new Date(timestamp);
-
-  return date.toLocaleString("no-NO");
-}
-
-/* ➕ LEGG TIL BIL */
+/* ➕ ADD CAR */
 function addCar() {
 
-  const plate = plateInput.value.trim().toUpperCase();
+  const plate =
+    plateInput.value.trim().toUpperCase();
 
   if (!plate) return;
 
-  const existing = cars.find(c => c.plate === plate);
+  const existing =
+    cars.find(c => c.plate === plate);
 
   if (existing) {
 
-    existing.count = (existing.count || 1) + 1;
+    existing.count =
+      (existing.count || 1) + 1;
 
     existing.createdAt = Date.now();
 
@@ -172,19 +245,20 @@ function addCar() {
       createdAt: Date.now(),
       count: 1
     });
-
   }
 
-  saveCars();
   addXP(10);
-updateQuests();
-  
+
+  updateQuests();
+
+  saveCars();
+
   plateInput.value = "";
 
   render();
 }
 
-/* ❌ SLETT */
+/* ❌ DELETE */
 function deleteCar(id) {
 
   cars.splice(id, 1);
@@ -194,24 +268,41 @@ function deleteCar(id) {
   render();
 }
 
-/* 📱 SISTE BIL CARD */
+/* 📱 LAST CAR */
 function renderLastCar() {
 
-  const lastCarDiv = document.getElementById("lastCar");
+  const lastCarDiv =
+    document.getElementById("lastCar");
 
   if (!lastCarDiv) return;
 
   if (cars.length === 0) {
+
     lastCarDiv.innerHTML = "";
+
     return;
   }
 
   const last = cars.reduce((latest, car) => {
-    return car.createdAt > latest.createdAt ? car : latest;
+    return car.createdAt > latest.createdAt
+      ? car
+      : latest;
   });
 
   lastCarDiv.innerHTML = `
-    <div class="last-plate">${last.plate}</div>
+
+    <div style="
+      font-size:11px;
+      opacity:0.7;
+      margin-bottom:6px;
+      letter-spacing:1px;
+    ">
+      SISTE REGISTRERING
+    </div>
+
+    <div class="last-plate">
+      ${last.plate}
+    </div>
 
     <div class="last-meta">
       Lagt til ${formatDate(last.createdAt)}
@@ -228,10 +319,12 @@ function render() {
 
   let filtered = [...cars];
 
-  const search = searchInput.value.toLowerCase();
+  const search =
+    searchInput.value.toLowerCase();
 
   /* 🔍 SEARCH */
   if (search) {
+
     filtered = filtered.filter(car =>
       car.plate.toLowerCase().includes(search)
     );
@@ -241,30 +334,40 @@ function render() {
   const sort = sortSelect.value;
 
   if (sort === "newest") {
-    filtered.sort((a, b) => b.createdAt - a.createdAt);
+    filtered.sort((a, b) =>
+      b.createdAt - a.createdAt
+    );
   }
 
   if (sort === "oldest") {
-    filtered.sort((a, b) => a.createdAt - b.createdAt);
+    filtered.sort((a, b) =>
+      a.createdAt - b.createdAt
+    );
   }
 
   if (sort === "az") {
-    filtered.sort((a, b) => a.plate.localeCompare(b.plate));
+    filtered.sort((a, b) =>
+      a.plate.localeCompare(b.plate)
+    );
   }
 
   if (sort === "za") {
-    filtered.sort((a, b) => b.plate.localeCompare(a.plate));
+    filtered.sort((a, b) =>
+      b.plate.localeCompare(a.plate)
+    );
   }
 
   if (sort === "num") {
     filtered.sort((a, b) =>
-      extractNumber(a.plate) - extractNumber(b.plate)
+      extractNumber(a.plate) -
+      extractNumber(b.plate)
     );
   }
 
   if (sort === "numDesc") {
     filtered.sort((a, b) =>
-      extractNumber(b.plate) - extractNumber(a.plate)
+      extractNumber(b.plate) -
+      extractNumber(a.plate)
     );
   }
 
@@ -280,21 +383,27 @@ function render() {
 
     car.count = car.count || 1;
 
-    const div = document.createElement("div");
+    const div =
+      document.createElement("div");
 
     div.className = "card";
 
     div.innerHTML = `
       <div>
-        <div class="plate">${car.plate}</div>
+
+        <div class="plate">
+          ${car.plate}
+        </div>
 
         <div class="time">
-          Lagt til: ${formatDate(car.createdAt)}
+          Lagt til:
+          ${formatDate(car.createdAt)}
         </div>
 
         <div class="time">
           Registrert ${car.count} ganger
         </div>
+
       </div>
 
       <button class="delete-btn">
@@ -305,7 +414,8 @@ function render() {
     div.querySelector("button")
       .addEventListener("click", () => {
 
-        const realIndex = cars.indexOf(car);
+        const realIndex =
+          cars.indexOf(car);
 
         deleteCar(realIndex);
 
@@ -315,7 +425,6 @@ function render() {
 
   });
 
-  /* 📱 SISTE BIL */
   renderLastCar();
 }
 
@@ -331,7 +440,7 @@ plateInput.addEventListener("keypress", (e) => {
 
 });
 
-/* 🔠 AUTO STORE BOKSTAVER */
+/* 🔠 AUTO CAPS */
 plateInput.addEventListener("input", () => {
 
   plateInput.value =
@@ -340,10 +449,16 @@ plateInput.addEventListener("input", () => {
 });
 
 /* 🔍 SEARCH */
-searchInput.addEventListener("input", render);
+searchInput.addEventListener(
+  "input",
+  render
+);
 
 /* ↕️ SORT */
-sortSelect.addEventListener("change", render);
+sortSelect.addEventListener(
+  "change",
+  render
+);
 
 /* ⚡ SERVICE WORKER */
 if ("serviceWorker" in navigator) {
@@ -354,7 +469,6 @@ if ("serviceWorker" in navigator) {
 
       console.log("SW registered");
 
-      /* 🔄 CHECK FOR UPDATES */
       setInterval(() => {
         reg.update();
       }, 30000);
