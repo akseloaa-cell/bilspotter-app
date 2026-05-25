@@ -204,6 +204,41 @@ function generateWeeklyQuests() {
   saveQuests();
 }
 
+function updateResetTimers() {
+
+  const dailyEl = document.getElementById("dailyReset");
+  const weeklyEl = document.getElementById("weeklyReset");
+
+  if (!dailyEl || !weeklyEl) return;
+
+  // 📅 DAILY (til midnatt)
+  const now = new Date();
+  const nextMidnight = new Date();
+  nextMidnight.setHours(24, 0, 0, 0);
+
+  const diffDaily = nextMidnight - now;
+
+  const h = Math.floor(diffDaily / 1000 / 60 / 60);
+  const m = Math.floor((diffDaily / 1000 / 60) % 60);
+  const s = Math.floor((diffDaily / 1000) % 60);
+
+  dailyEl.innerText = `${h}t ${m}m ${s}s`;
+
+  // 📅 WEEKLY (til neste mandag)
+  const nextMonday = new Date();
+  const daysToMonday = (8 - now.getDay()) % 7 || 7;
+
+  nextMonday.setDate(now.getDate() + daysToMonday);
+  nextMonday.setHours(0, 0, 0, 0);
+
+  const diffWeek = nextMonday - now;
+
+  const d = Math.floor(diffWeek / 1000 / 60 / 60 / 24);
+  const wh = Math.floor((diffWeek / 1000 / 60 / 60) % 24);
+
+  weeklyEl.innerText = `${d}d ${wh}t`;
+}
+
 /* ================= CAR SYSTEM ================= */
 function addCar() {
   const plate = plateInput.value.trim().toUpperCase();
