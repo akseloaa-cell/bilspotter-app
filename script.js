@@ -168,9 +168,12 @@ function updateQuests(plate) {
 
     // 🎯 TEXT QUEST (DL etc)
     else if (q.type === "hasText") {
-      hit = analysis.hasText(q.value);
-      if (hit) q.progress += 1;
-    }
+  const hit = plate.includes(q.value);
+
+  if (hit) q.progress += 1;
+
+  done = q.progress >= q.goal;
+}
 
     // 🔢 SUM QUEST
     else if (q.type === "sumEquals") {
