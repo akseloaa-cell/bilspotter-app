@@ -50,45 +50,6 @@
 
     </div>
 
-    <!-- 🔍 SØK + SORTERING -->
-    <div class="controls">
-
-      <input
-        type="text"
-        id="searchInput"
-        placeholder="Søk..."
-      />
-
-      <select id="sortSelect">
-
-        <option value="newest">
-          Nyeste først
-        </option>
-
-        <option value="oldest">
-          Eldste først
-        </option>
-
-        <option value="az">
-          A → Å
-        </option>
-
-        <option value="za">
-          Å → A
-        </option>
-
-        <option value="num">
-          Nummer (stigende)
-        </option>
-
-        <option value="numDesc">
-          Nummer (synkende)
-        </option>
-
-      </select>
-
-    </div>
-
     <!-- 📊 STATS -->
     <div id="stats"></div>
 
@@ -160,9 +121,43 @@
   </div>
 
 </div>
-    
+
+  <!-- 🚗 LIST HEADER -->
+<div class="list-header">
+
+  <div class="list-title">
+    🚗 Spotted cars
+  </div>
+
+  <div class="controls">
+
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Søk..."
+    />
+
+    <select id="sortSelect">
+
+      <option value="newest">Nyeste først</option>
+      <option value="oldest">Eldste først</option>
+      <option value="az">A → Å</option>
+      <option value="za">Å → A</option>
+      <option value="num">Nummer ↑</option>
+      <option value="numDesc">Nummer ↓</option>
+
+    </select>
+
+  </div>
+
+</div>
+  
     <!-- 🚗 LISTE -->
-    <div id="list"></div>
+    <div class="list-card">
+
+  <div id="list"></div>
+
+</div>
 
   </div>
 
