@@ -1,4 +1,5 @@
 import { questTemplates } from "./quests.js";
+import { questPool } from "./quests.js";
 
 const plateInput = document.getElementById("plateInput");
 const addBtn = document.getElementById("addBtn");
