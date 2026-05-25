@@ -351,6 +351,8 @@ function selectQuestFromPopup(id) {
   renderQuestChoices();
 }
 
+window.selectQuestFromPopup = selectQuestFromPopup;
+
 function renderActiveQuest() {
   const el = document.getElementById("activeQuest");
   if (!el) return;
