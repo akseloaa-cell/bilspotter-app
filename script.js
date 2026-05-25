@@ -316,11 +316,41 @@ plateInput.addEventListener("input", () => {
 searchInput.addEventListener("input", render);
 sortSelect.addEventListener("change", render);
 
+function shouldResetDaily() {
+
+  const last = localStorage.getItem("dailyReset");
+  const today = new Date().toDateString();
+
+  if (last !== today) {
+    localStorage.setItem("dailyReset", today);
+    generateDailyQuests();
+  }
+}
+
+function shouldResetWeekly() {
+
+  const last = localStorage.getItem("weeklyReset");
+  const now = new Date();
+
+  const monday = new Date();
+  const daysToMonday = (8 - now.getDay()) % 7 || 7;
+  monday.setDate(now.getDate() + daysToMonday);
+
+  const weekId = monday.toDateString();
+
+  if (last !== weekId) {
+    localStorage.setItem("weeklyReset", weekId);
+    generateWeeklyQuests();
+  }
+}
+
 /* ================= INIT ================= */
 render();
 renderXP();
 renderQuests();
 renderLastCar();
+shouldResetDaily();
+shouldResetWeekly();
 
 window.quests = quests;
 window.cars = cars;
