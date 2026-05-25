@@ -511,3 +511,17 @@ select {
   cursor: pointer;
   padding: 4px;
 }
+
+.plate-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fav-btn {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px;
+}
