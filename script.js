@@ -308,8 +308,16 @@ lastCarDiv.innerHTML = `
 
       <div class="last-label">SISTE REGISTRERING</div>
 
-      <div class="last-plate">
-        ${last.plate || "?"}
+      <div class="plate-row">
+
+        <div class="last-plate">
+          ${last.plate || "?"}
+        </div>
+
+        <button class="fav-btn">
+          ${last.favorite ? "⭐" : "☆"}
+        </button>
+
       </div>
 
     </div>
@@ -317,10 +325,6 @@ lastCarDiv.innerHTML = `
     <div class="xp-big">
       +${last.xp || 10} XP
     </div>
-
-    <button class="fav-btn">
-      ${last.favorite ? "⭐" : "☆"}
-    </button>
 
   </div>
 
