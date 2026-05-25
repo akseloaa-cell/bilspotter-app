@@ -280,6 +280,7 @@ function addCar() {
   plateInput.value = "";
 
   render();
+  renderLastCar();
 }
 
 function deleteCar(index) {
