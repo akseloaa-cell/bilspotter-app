@@ -1,4 +1,4 @@
-import { quests } from "./quests.js";
+import { questTemplates } from "./quests.js";
 
 const plateInput = document.getElementById("plateInput");
 const addBtn = document.getElementById("addBtn");
@@ -20,39 +20,9 @@ let player = JSON.parse(localStorage.getItem("player")) || {
 };
 
 /* 📅 QUESTS */
-let quests = JSON.parse(localStorage.getItem("quests")) || {
-
-  daily: [
-    {
-      id: "daily1",
-      name: "Spot 5 biler",
-      goal: 5,
-      progress: 0,
-      reward: 50,
-      completed: false
-    },
-
-    {
-      id: "daily2",
-      name: "Spot 10 biler",
-      goal: 10,
-      progress: 0,
-      reward: 100,
-      completed: false
-    }
-  ],
-
-  weekly: [
-    {
-      id: "weekly1",
-      name: "Spot 50 biler",
-      goal: 50,
-      progress: 0,
-      reward: 500,
-      completed: false
-    }
-  ]
-};
+let quests =
+  JSON.parse(localStorage.getItem("quests")) ||
+  structuredClone(questTemplates);
 
 /* 💾 SAVE */
 function saveCars() {
