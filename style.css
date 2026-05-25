@@ -453,3 +453,39 @@ select {
 
   font-weight: 500;
 }
+
+.game-ui {
+  margin: 18px 0;
+  padding: 14px;
+  border-radius: 16px;
+  background: #0f172a;
+}
+
+.list-card {
+  margin-top: 18px;
+  padding: 14px;
+  border-radius: 16px;
+  background: #0b1220;
+}
+
+.list-header {
+  margin-bottom: 10px;
+}
+
+.list-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  opacity: 0.9;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+}
+
+@media (max-width: 600px) {
+  .controls {
+    flex-direction: column;
+  }
+}
