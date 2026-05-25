@@ -576,3 +576,24 @@ select {
   animation: wiggle67 0.6s ease-in-out 2;
   will-change: transform;
 }
+
+.quest-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.quest-popup.hidden {
+  display: none;
+}
+
+.quest-popup-card {
+  background: white;
+  padding: 16px;
+  margin: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+}
