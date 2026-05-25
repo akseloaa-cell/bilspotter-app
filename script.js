@@ -88,7 +88,10 @@ function addXP(amount) {
 
   player.xp += amount;
 
-  const needed = player.level * 100;
+  const needed =
+  Math.floor(
+    75 + (player.level * player.level * 35)
+  );
 
   if (player.xp >= needed) {
 
