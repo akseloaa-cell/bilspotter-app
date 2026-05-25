@@ -59,7 +59,7 @@ export const questPool = {
       id: "w1",
       name: "Spot 300 biler",
       type: "countCars",
-      goal: 50,
+      goal: 300,
       reward: 500
     },
     {
