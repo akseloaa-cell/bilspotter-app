@@ -80,10 +80,14 @@ function renderXP() {
 
 function calculateXP(plate) {
 
-  let xp = 10; // base XP
-
   const letters = plate.replace(/\d/g, "");
   const numbers = plate.replace(/\D/g, "");
+  
+if (numbers.includes("67")) {
+    return 67;
+  }
+  
+  let xp = 10; // base XP
 
   // 🔠 dobbel bokstav (AA, BB osv)
   if (/(.)\1/.test(letters)) {
@@ -91,14 +95,35 @@ function calculateXP(plate) {
   }
 
   // 🔢 like tall (11, 222 osv)
-  if (/(.)\1{1,}/.test(numbers)) {
-    xp += numbers.length * 10;
-  }
+ const match = numbers.match(/(\d)\1+/g);
 
-  // 🎯 ekstra bonus for helt like tegn
-  if (/^(.)\1+$/.test(numbers) || /^(.)\1+$/.test(letters)) {
-    xp += 50;
+if (match) {
+  match.forEach(m => {
+    const length = m.length;
+
+    // 2 like → 20 XP
+    if (length === 2) xp += 20;
+
+    // 3 like → 30 XP
+    else if (length === 3) xp += 30;
+
+    // 4 like → 40 XP
+    else if (length === 4) xp += 50;
+    else if (length === 5) xp += 100;
+  });
+}
+
+  const digitCounts = {};
+
+for (const d of numbers) {
+  digitCounts[d] = (digitCounts[d] || 0) + 1;
+}
+
+for (const count of Object.values(digitCounts)) {
+  if (count > 1) {
+    xp += (count - 1) * 5;
   }
+}
 
   return xp;
 }
