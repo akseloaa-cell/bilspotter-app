@@ -538,11 +538,10 @@ select {
   flex-direction: column;
 }
 
-.xp-big {
-  font-size: 22px;
-  font-weight: 800;
-  color: #60a5fa;
-  white-space: nowrap;
+.plate-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .fav-btn {
@@ -550,4 +549,11 @@ select {
   border: none;
   font-size: 20px;
   cursor: pointer;
+}
+
+.xp-big {
+  font-size: 22px;
+  font-weight: 800;
+  color: #60a5fa;
+  white-space: nowrap;
 }
