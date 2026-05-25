@@ -334,7 +334,7 @@ function addCar() {
 
   render();
   renderLastCar();
-  updateQuests();
+  updateQuests(plate);
 }
 
 function deleteCar(index) {
