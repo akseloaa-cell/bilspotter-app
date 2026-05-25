@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="no">
+
 <head>
   <meta charset="UTF-8" />
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Bilspotter</title>
 
@@ -15,11 +13,7 @@
   <meta name="theme-color" content="#111827" />
 
   <!-- 🚗 App icon -->
-  <link
-    rel="icon"
-    type="image/png"
-    href="b98ab4e3-b4bf-417e-a76a-b7bb691b1da5.png"
-  />
+  <link rel="icon" type="image/png" href="b98ab4e3-b4bf-417e-a76a-b7bb691b1da5.png" />
 
   <!-- 🎨 CSS -->
   <link rel="stylesheet" href="style.css" />
@@ -31,7 +25,7 @@
 
     <h1>🚗 Bilspotter</h1>
 
-    <!-- ➕ LEGG TIL -->
+    <!-- ➕ INPUT -->
     <div class="top-bar">
 
       <input
@@ -44,120 +38,85 @@
         spellcheck="false"
       />
 
-      <button id="addBtn">
-        Legg til
-      </button>
+      <button id="addBtn">Legg til</button>
 
     </div>
 
     <!-- 📊 STATS -->
     <div id="stats"></div>
 
-    <!-- 📱 SISTE BIL -->
+    <!-- 🚗 LAST CAR -->
     <div id="lastCar" class="last-card"></div>
 
-    <!-- 📱 SISTE BIL -->
-<div id="lastCar" class="last-card"></div>
+    <!-- ⭐ XP -->
+    <div class="xp-card">
 
-<!-- ⭐ XP -->
-<div class="xp-card">
+      <div class="xp-top">
 
-  <div class="xp-top">
+        <div>
+          <div class="level-label">LEVEL</div>
+          <div id="level">1</div>
+        </div>
 
-    <div>
-      <div class="level-label">
-        LEVEL
+        <div id="xpText" class="xp-info">0 / 100 XP</div>
+
       </div>
 
-      <div id="level">1</div>
+      <div class="xp-bar">
+        <div id="xpFill" class="xp-fill"></div>
+      </div>
+
     </div>
 
-    <div id="xpText" class="xp-info">
-      0 / 100 XP
+    <!-- 🎮 QUESTS -->
+    <div class="game-ui">
+
+      <div class="quests-title">
+        <span>📅 Daily Quests</span>
+        <span id="dailyReset" class="quest-reset">--</span>
+      </div>
+
+      <div id="dailyQuests"></div>
+
+      <div class="quests-title weekly-title">
+        <span>🗓️ Weekly Quests</span>
+        <span id="weeklyReset" class="quest-reset">--</span>
+      </div>
+
+      <div id="weeklyQuests"></div>
+
     </div>
 
-  </div>
+    <!-- 🚗 LIST HEADER -->
+    <div class="list-header">
 
-  <div class="xp-bar">
-    <div id="xpFill" class="xp-fill"></div>
-  </div>
+      <div class="list-title">🚗 Spotted cars</div>
 
-</div>
+      <div class="controls">
 
-<!-- 🎮 QUESTS -->
-<div class="game-ui">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Søk..."
+        />
 
-  <div class="quests-title">
-    <span>📅 Daily Quests</span>
-    <span id="dailyReset" class="quest-reset">--</span>
-  </div>
+        <select id="sortSelect">
+          <option value="newest">Nyeste først</option>
+          <option value="oldest">Eldste først</option>
+          <option value="az">A → Å</option>
+          <option value="za">Å → A</option>
+          <option value="num">Nummer ↑</option>
+          <option value="numDesc">Nummer ↓</option>
+        </select>
 
-  <div id="dailyQuests"></div>
+      </div>
 
-  <div class="quests-title weekly-title">
-    <span>🗓️ Weekly Quests</span>
-    <span id="weeklyReset" class="quest-reset">--</span>
-  </div>
+    </div>
 
-  <div id="weeklyQuests"></div>
-
-</div>
-
-<!-- 🚗 LISTE -->
-<div id="list"></div>
-
-    <div id="dailyQuests"></div>
-
-    <div class="quests-title weekly-title">
-  <span>🗓️ Weekly Quests</span>
-
-  <span id="weeklyReset" class="quest-reset">
-    --
-  </span>
-</div>
-
-    <div id="weeklyQuests"></div>
-
-  </div>
-
-</div>
-
-  <!-- 🚗 LIST HEADER -->
-<div class="list-header">
-
-  <div class="list-title">
-    🚗 Spotted cars
-  </div>
-
-  <div class="controls">
-
-    <input
-      type="text"
-      id="searchInput"
-      placeholder="Søk..."
-    />
-
-    <select id="sortSelect">
-
-      <option value="newest">Nyeste først</option>
-      <option value="oldest">Eldste først</option>
-      <option value="az">A → Å</option>
-      <option value="za">Å → A</option>
-      <option value="num">Nummer ↑</option>
-      <option value="numDesc">Nummer ↓</option>
-
-    </select>
-
-  </div>
-
-</div>
-  
-    <!-- 🚗 LISTE -->
+    <!-- 🚗 LIST -->
     <div class="list-card">
-
-  <div id="list"></div>
-
-</div>
+      <div id="list"></div>
+    </div>
 
   </div>
 
