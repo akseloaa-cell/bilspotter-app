@@ -260,8 +260,8 @@ function updateResetTimers() {
       (dailyDiff / 1000) % 60
     );
 
-  dailyEl.innerText =
-    `📅 Daily reset om ${dailyHours}t ${dailyMinutes}m ${dailySeconds}s`;
+dailyEl.innerText =
+  `${dailyHours}t ${dailyMinutes}m ${dailySeconds}s`;
 
   /* 🗓️ WEEKLY */
 
@@ -290,7 +290,7 @@ function updateResetTimers() {
     );
 
   weeklyEl.innerText =
-    `🗓️ Weekly reset om ${weeklyDays}d ${weeklyHours}t`;
+  `${weeklyDays}d ${weeklyHours}t`;
 }
 /* ➕ ADD CAR */
 function addCar() {
