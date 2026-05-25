@@ -262,7 +262,8 @@ function addCar() {
   plate,
   createdAt: Date.now(),
   count: 1,
-  favorite: false
+  favorite: false,
+  xp: xp
 });
   }
 
@@ -303,23 +304,23 @@ function renderLastCar() {
 lastCarDiv.innerHTML = `
   <div class="last-header">
 
-    <div class="last-main">
+    <div class="last-left">
 
       <div class="last-label">SISTE REGISTRERING</div>
 
-      <div class="last-row">
-
-        <div class="last-plate">
-          ${last.plate || "?"}
-        </div>
-
-        <button class="fav-btn">
-          ${last.favorite ? "⭐" : "☆"}
-        </button>
-
+      <div class="last-plate">
+        ${last.plate || "?"}
       </div>
 
     </div>
+
+    <div class="xp-big">
+      +${last.xp || 10} XP
+    </div>
+
+    <button class="fav-btn">
+      ${last.favorite ? "⭐" : "☆"}
+    </button>
 
   </div>
 
