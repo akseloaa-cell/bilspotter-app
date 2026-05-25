@@ -188,6 +188,42 @@ function deleteCar(index) {
   render();
 }
 
+function renderLastCar() {
+  const lastCarDiv = document.getElementById("lastCar");
+
+  if (!lastCarDiv) return;
+  if (!cars || cars.length === 0) {
+    lastCarDiv.innerHTML = "";
+    return;
+  }
+
+  // trygg sortering (bedre enn reduce)
+  const sorted = [...cars].sort((a, b) => {
+    return (b.createdAt || 0) - (a.createdAt || 0);
+  });
+
+  const last = sorted[0];
+
+  if (!last) return;
+
+  lastCarDiv.innerHTML = `
+    <div style="font-size:11px;opacity:0.7;margin-bottom:6px;">
+      SISTE REGISTRERING
+    </div>
+
+    <div class="last-plate">
+      ${last.plate || "?"}
+    </div>
+
+    <div class="last-meta">
+      Lagt til: ${last.createdAt ? formatDate(last.createdAt) : "ukjent"}
+    </div>
+
+    <div class="last-meta">
+      Registrert ${last.count || 1} ganger
+    </div>
+  `;
+}
 /* ================= RENDER ================= */
 function formatDate(t) {
   return new Date(t).toLocaleString("no-NO");
