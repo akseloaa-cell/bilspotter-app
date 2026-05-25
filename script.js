@@ -273,31 +273,37 @@ function renderLastCar() {
     car.createdAt > latest.createdAt ? car : latest
   );
 
-  lastCarDiv.innerHTML = `
-    <div class="last-header">
+lastCarDiv.innerHTML = `
+  <div class="last-header">
 
-      <div>
-        <div class="last-label">SISTE REGISTRERING</div>
+    <div class="last-main">
+
+      <div class="last-label">SISTE REGISTRERING</div>
+
+      <div class="last-row">
 
         <div class="last-plate">
           ${last.plate || "?"}
         </div>
+
+        <button class="fav-btn">
+          ${last.favorite ? "⭐" : "☆"}
+        </button>
+
       </div>
 
-      <button class="fav-btn">
-        ${last.favorite ? "⭐" : "☆"}
-      </button>
-
     </div>
 
-    <div class="last-meta">
-      Lagt til ${formatDate(last.createdAt)}
-    </div>
+  </div>
 
-    <div class="last-meta">
-      Registrert ${last.count || 1} ganger
-    </div>
-  `;
+  <div class="last-meta">
+    Lagt til ${formatDate(last.createdAt)}
+  </div>
+
+  <div class="last-meta">
+    Registrert ${last.count || 1} ganger
+  </div>
+`;
 
   const btn = lastCarDiv.querySelector(".fav-btn");
 
