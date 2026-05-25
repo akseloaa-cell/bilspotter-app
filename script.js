@@ -27,6 +27,14 @@ quests.daily = quests.daily.slice(0, 2);
 quests.weekly = quests.weekly.slice(0, 2);
 
 let lastHas67 = false;
+
+let activeQuest = JSON.parse(localStorage.getItem("activeQuest")) || null;
+
+let questChoices = JSON.parse(localStorage.getItem("questChoices")) || [];
+
+if (!activeQuest && questChoices.length === 0) {
+  generateQuestChoices();
+}
 /* ================= SAVE ================= */
 function saveCars() {
   localStorage.setItem("cars", JSON.stringify(cars));
@@ -147,33 +155,27 @@ for (const count of Object.values(digitCounts)) {
 }
 /* ================= QUEST SYSTEM ================= */
 function updateQuests(plate) {
-
   if (!plate) return;
 
   const analysis = analyzePlate(plate);
 
   [...quests.daily, ...quests.weekly].forEach((q) => {
-
     if (q.completed) return;
 
-    // 🧠 safety
     q.progress = q.progress || 0;
 
     let hit = false;
 
-    // 🚗 COUNT QUEST (always increments)
+    // 🚗 COUNT QUEST
     if (q.type === "countCars") {
       q.progress += 1;
     }
 
-    // 🎯 TEXT QUEST (DL etc)
+    // 🎯 TEXT QUEST
     else if (q.type === "hasText") {
-  const hit = plate.includes(q.value);
-
-  if (hit) q.progress += 1;
-
-  done = q.progress >= q.goal;
-}
+      hit = plate.includes(q.value);
+      if (hit) q.progress += 1;
+    }
 
     // 🔢 SUM QUEST
     else if (q.type === "sumEquals") {
@@ -181,20 +183,20 @@ function updateQuests(plate) {
       if (hit) q.progress += 1;
     }
 
-    // 🔠 DOUBLE LETTER QUEST
+    // 🔠 DOUBLE LETTER
     else if (q.type === "doubleLetter") {
       hit = analysis.hasDoubleLetter;
       if (hit) q.progress += 1;
     }
 
+    // 🔢 TRIPLE DIGIT
     else if (q.type === "tripleDigit") {
-  const match = plate.match(/(\d)\1\1/);
-  if (match) q.progress += 1;
-  done = q.progress >= q.goal;
-}
+      hit = /(\d)\1\1/.test(plate);
+      if (hit) q.progress += 1;
+    }
 
-    // 🏁 COMPLETE CHECK (UNIFIED)
-    if (q.progress >= q.goal) {
+    // 🏁 COMPLETE CHECK (ENKEL OG SIKKER)
+    if (q.progress >= q.goal && !q.completed) {
       q.completed = true;
       q.progress = q.goal;
 
@@ -226,9 +228,12 @@ function renderQuests() {
 }
 
 function questHTML(q) {
- const progress = q.progress ?? 0;
-const goal = q.goal ?? 1;
-const percent = Math.min(100, (progress / goal) * 100 || 0);
+  const progress = q.progress ?? 0;
+  const goal = q.goal ?? 1;
+
+  const percent = goal > 0
+    ? Math.min(100, (progress / goal) * 100)
+    : 0;
 
   return `
     <div class="quest">
@@ -310,6 +315,71 @@ function pickRandomQuests(pool, max) {
     }));
 }
 
+function generateQuestChoices() {
+  questChoices = pickRandomQuests(questPool.daily, 3);
+  saveQuestChoices();
+}
+
+function saveQuestChoices() {
+  localStorage.setItem("questChoices", JSON.stringify(questChoices));
+}
+
+function saveActiveQuest() {
+  localStorage.setItem("activeQuest", JSON.stringify(activeQuest));
+}
+
+function selectQuest(q) {
+  activeQuest = {
+    ...q,
+    progress: 0,
+    completed: false
+  };
+
+  questChoices = [];
+
+  saveActiveQuest();
+  saveQuestChoices();
+
+  renderQuests();
+}
+
+function renderActiveQuest() {
+  const el = document.getElementById("activeQuest");
+
+  if (!el) return;
+
+  if (!activeQuest) {
+    el.innerHTML = "<div>Velg en quest 👇</div>";
+    return;
+  }
+
+  const p = activeQuest.progress || 0;
+
+  el.innerHTML = `
+    <div class="quest">
+      <div>${activeQuest.name}</div>
+      <div>${p} / ${activeQuest.goal}</div>
+    </div>
+  `;
+}
+
+function renderQuestChoices() {
+  const el = document.getElementById("questChoices");
+
+  if (!el) return;
+
+  if (activeQuest) {
+    el.innerHTML = "";
+    return;
+  }
+
+  el.innerHTML = questChoices.map(q => `
+    <div class="quest-choice" onclick="selectQuest(${JSON.stringify(q).replaceAll('"','&quot;')})">
+      <div>${q.name}</div>
+      <div>⭐ ${q.reward} XP</div>
+    </div>
+  `).join("");
+}
 /* ================= CAR SYSTEM ================= */
 function addCar() {
 
