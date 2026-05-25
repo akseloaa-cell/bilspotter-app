@@ -181,8 +181,9 @@ function renderQuests() {
         </div>
 
         <div class="quest-progress">
-          ${quest.progress} / ${quest.goal}
-        </div>
+  ${quest.progress} / ${quest.goal}
+  • ⭐ ${quest.reward} XP
+</div>
 
         <div class="quest-bar">
           <div
@@ -207,9 +208,10 @@ function renderQuests() {
           ${quest.completed ? "✅" : "🏁"} ${quest.name}
         </div>
 
-        <div class="quest-progress">
-          ${quest.progress} / ${quest.goal}
-        </div>
+       <div class="quest-progress">
+  ${quest.progress} / ${quest.goal}
+  • ⭐ ${quest.reward} XP
+</div>
 
         <div class="quest-bar">
           <div
