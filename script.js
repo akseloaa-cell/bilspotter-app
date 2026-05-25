@@ -249,9 +249,14 @@ function pickRandomQuests(pool, max) {
 
 /* ================= CAR SYSTEM ================= */
 function addCar() {
+
   const plate = plateInput.value.trim().toUpperCase();
   if (!plate) return;
 
+  // 1. beregn XP FØRST
+  const xp = calculateXP(plate);
+
+  // 2. oppdater data
   const existing = cars.find(c => c.plate === plate);
 
   if (existing) {
@@ -259,25 +264,22 @@ function addCar() {
     existing.createdAt = Date.now();
   } else {
     cars.push({
-  plate,
-  createdAt: Date.now(),
-  count: 1,
-  favorite: false,
-  xp: xp
-});
+      plate,
+      createdAt: Date.now(),
+      count: 1,
+      xp: xp,
+      favorite: false
+    });
   }
+
+  // 3. gi XP til player
+  addXP(xp);
 
   saveCars();
 
-  const xp = calculateXP(plate);
-
-addXP(xp);
-  
-  updateQuests(plate);
-
   plateInput.value = "";
+
   render();
-  renderLastCar();
 }
 
 function deleteCar(index) {
