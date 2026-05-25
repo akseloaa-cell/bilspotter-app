@@ -225,6 +225,73 @@ function renderQuests() {
   });
 }
 
+/* ⏳ RESET TIMERS */
+function updateResetTimers() {
+
+  const dailyEl =
+    document.getElementById("dailyReset");
+
+  const weeklyEl =
+    document.getElementById("weeklyReset");
+
+  if (!dailyEl || !weeklyEl) return;
+
+  /* 📅 DAILY */
+
+  const now = new Date();
+
+  const nextMidnight = new Date();
+
+  nextMidnight.setHours(24, 0, 0, 0);
+
+  const dailyDiff =
+    nextMidnight - now;
+
+  const dailyHours =
+    Math.floor(dailyDiff / 1000 / 60 / 60);
+
+  const dailyMinutes =
+    Math.floor(
+      (dailyDiff / 1000 / 60) % 60
+    );
+
+  const dailySeconds =
+    Math.floor(
+      (dailyDiff / 1000) % 60
+    );
+
+  dailyEl.innerText =
+    `📅 Daily reset om ${dailyHours}t ${dailyMinutes}m ${dailySeconds}s`;
+
+  /* 🗓️ WEEKLY */
+
+  const nextMonday = new Date();
+
+  const daysUntilMonday =
+    (8 - now.getDay()) % 7 || 7;
+
+  nextMonday.setDate(
+    now.getDate() + daysUntilMonday
+  );
+
+  nextMonday.setHours(0,0,0,0);
+
+  const weeklyDiff =
+    nextMonday - now;
+
+  const weeklyDays =
+    Math.floor(
+      weeklyDiff / 1000 / 60 / 60 / 24
+    );
+
+  const weeklyHours =
+    Math.floor(
+      (weeklyDiff / 1000 / 60 / 60) % 24
+    );
+
+  weeklyEl.innerText =
+    `🗓️ Weekly reset om ${weeklyDays}d ${weeklyHours}t`;
+}
 /* ➕ ADD CAR */
 function addCar() {
 
@@ -494,3 +561,6 @@ if ("serviceWorker" in navigator) {
 render();
 renderXP();
 renderQuests();
+updateResetTimers();
+
+setInterval(updateResetTimers, 1000);
