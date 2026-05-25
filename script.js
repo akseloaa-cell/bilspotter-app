@@ -305,15 +305,27 @@ lastCarDiv.innerHTML = `
   </div>
 `;
 
-  const btn = lastCarDiv.querySelector(".fav-btn");
+ const btn = lastCarDiv.querySelector(".fav-btn");
 
-  if (btn) {
-    btn.addEventListener("click", () => {
-      last.favorite = !last.favorite;
-      saveCars();
-      render();
-    });
-  }
+if (btn) {
+  btn.addEventListener("click", () => {
+
+    // 🔍 finn ekte objekt i cars-array
+    const car = cars.find(c =>
+      c.plate === last.plate &&
+      c.createdAt === last.createdAt
+    );
+
+    if (!car) return;
+
+    car.favorite = !car.favorite;
+
+    saveCars();
+
+    render();          // oppdater liste
+    renderLastCar();   // oppdater last card
+  });
+}
 }
 
 function toggleFavorite(car) {
