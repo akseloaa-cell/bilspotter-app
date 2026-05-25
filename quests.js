@@ -2,17 +2,17 @@ export const questPool = {
   daily: [
     {
       id: "d1",
-      name: "Spot 5 biler",
+      name: "Spot 50 biler",
       type: "countCars",
-      goal: 5,
-      reward: 50
+      goal: 50,
+      reward: 100
     },
     {
       id: "d2",
-      name: "Spot 10 biler",
+      name: "Spot 30 biler",
       type: "countCars",
-      goal: 10,
-      reward: 100
+      goal: 30,
+      reward: 80
     },
     {
       id: "d3",
@@ -20,7 +20,7 @@ export const questPool = {
       type: "hasText",
       value: "DL",
       goal: 1,
-      reward: 80
+      reward: 150
     },
     {
       id: "d4",
@@ -34,15 +34,30 @@ export const questPool = {
       id: "d5",
       name: "Dobbel bokstav i skilt",
       type: "doubleLetter",
-      goal: 1,
+      goal: 5,
       reward: 100
+    },
+    {
+      id: "d6",
+      name: "Trippel Siffer",
+      type: "tripleDigit",
+      goal: 2,
+      reward: 100
+    },
+    {
+      id: "d7",
+      name: "Finn 67",
+      type: "hastext",
+      value: "67",
+      goal: 1,
+      reward: 167
     }
   ],
 
   weekly: [
     {
       id: "w1",
-      name: "Spot 50 biler",
+      name: "Spot 300 biler",
       type: "countCars",
       goal: 50,
       reward: 500
@@ -53,7 +68,7 @@ export const questPool = {
       type: "hasText",
       value: "DL",
       goal: 3,
-      reward: 250
+      reward: 500
     }
   ]
 };
