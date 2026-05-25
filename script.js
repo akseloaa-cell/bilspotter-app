@@ -22,6 +22,10 @@ if (!quests || !quests.daily || !quests.weekly) {
   quests = structuredClone(questPool);
 }
 
+// 🔥 HARD LIMIT (ALLTID)
+quests.daily = quests.daily.slice(0, 2);
+quests.weekly = quests.weekly.slice(0, 2);
+
 /* ================= SAVE ================= */
 function saveCars() {
   localStorage.setItem("cars", JSON.stringify(cars));
