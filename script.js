@@ -95,11 +95,6 @@ function calculateXP(plate) {
     xp += numbers.length * 10;
   }
 
-  // 🔥 veldig kort plate = rar
-  if (plate.length <= 5) {
-    xp += 15;
-  }
-
   // 🎯 ekstra bonus for helt like tegn
   if (/^(.)\1+$/.test(numbers) || /^(.)\1+$/.test(letters)) {
     xp += 50;
