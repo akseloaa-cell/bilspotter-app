@@ -294,3 +294,7 @@ render();
 renderXP();
 renderQuests();
 renderLastCar();
+
+window.quests = quests;
+window.cars = cars;
+window.player = player;
