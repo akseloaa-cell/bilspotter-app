@@ -116,7 +116,8 @@ function renderXP() {
 
   if (!levelEl || !xpText || !xpFill) return;
 
-  const needed = player.level * 100;
+  const needed =
+  Math.floor(75 + (player.level * player.level * 35));
 
   levelEl.innerText = player.level;
 
