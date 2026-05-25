@@ -26,6 +26,7 @@ if (!quests || !quests.daily || !quests.weekly) {
 quests.daily = quests.daily.slice(0, 2);
 quests.weekly = quests.weekly.slice(0, 2);
 
+let lastHas67 = false;
 /* ================= SAVE ================= */
 function saveCars() {
   localStorage.setItem("cars", JSON.stringify(cars));
@@ -309,6 +310,7 @@ function addCar() {
   // 1. beregn XP FØRST
   const xp = calculateXP(plate);
 
+  const has67 = plate.includes("67");
   // 2. oppdater data
   const existing = cars.find(c => c.plate === plate);
 
@@ -335,6 +337,9 @@ function addCar() {
   render();
   renderLastCar();
   updateQuests(plate);
+  if (has67) {
+  trigger67Wiggle();
+}
 }
 
 function deleteCar(index) {
@@ -557,6 +562,16 @@ function shouldResetWeekly() {
   }
 }
 
+function trigger67Wiggle() {
+  const el = document.getElementById("lastCar");
+  if (!el) return;
+
+  el.classList.add("wiggle-67");
+
+  setTimeout(() => {
+    el.classList.remove("wiggle-67");
+  }, 1200);
+}
 /* ================= INIT ================= */
 render();
 renderXP();
