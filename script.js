@@ -129,37 +129,41 @@ for (const count of Object.values(digitCounts)) {
 }
 /* ================= QUEST SYSTEM ================= */
 function updateQuests(plate) {
+
   const analysis = analyzePlate(plate);
 
   [...quests.daily, ...quests.weekly].forEach((q) => {
+
     if (q.completed) return;
 
     let done = false;
 
-    // 🎯 TEXT QUEST
-    if (q.type === "hasText") {
-      done = analysis.hasText?.(q.value);
+    // 🚗 alltid countCars quests
+    if (q.type === "countCars") {
+      q.progress = (q.progress || 0) + 1;
+      done = q.progress >= q.goal;
     }
 
-    // 🔢 SUM QUEST
+    // 🎯 hasText quests
+    else if (q.type === "hasText") {
+      done = analysis.hasText(q.value);
+      if (done) q.progress = q.goal;
+    }
+
+    // 🔢 sum quests
     else if (q.type === "sumEquals") {
       done = analysis.sum === q.value;
+      if (done) q.progress = q.goal;
     }
 
-    // 🔠 DOUBLE LETTER
+    // 🔠 double letter
     else if (q.type === "doubleLetter") {
       done = analysis.hasDoubleLetter;
+      if (done) q.progress = q.goal;
     }
-
-    // 🚗 COUNT QUEST
-   else if (q.type === "countCars") {
-  done = updateCountQuests(q);
-}
 
     if (done) {
       q.completed = true;
-
-      // 🔥 viktig: lås progress til goal
       q.progress = q.goal;
 
       addXP(q.reward);
