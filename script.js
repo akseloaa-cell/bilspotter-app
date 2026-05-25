@@ -235,10 +235,11 @@ function addCar() {
     existing.createdAt = Date.now();
   } else {
     cars.push({
-      plate,
-      createdAt: Date.now(),
-      count: 1
-    });
+  plate,
+  createdAt: Date.now(),
+  count: 1,
+  favorite: false
+});
   }
 
   saveCars();
@@ -258,18 +259,57 @@ function deleteCar(index) {
 }
 
 function renderLastCar() {
+
   const lastCarDiv = document.getElementById("lastCar");
 
   if (!lastCarDiv) return;
-  if (!cars || cars.length === 0) {
+
+  if (cars.length === 0) {
     lastCarDiv.innerHTML = "";
     return;
   }
 
-  // trygg sortering (bedre enn reduce)
-  const sorted = [...cars].sort((a, b) => {
-    return (b.createdAt || 0) - (a.createdAt || 0);
-  });
+  const last = cars.reduce((latest, car) =>
+    car.createdAt > latest.createdAt ? car : latest
+  );
+
+  lastCarDiv.innerHTML = `
+    <div class="last-header">
+
+      <div>
+        <div class="last-label">SISTE REGISTRERING</div>
+
+        <div class="last-plate">
+          ${last.plate}
+        </div>
+      </div>
+
+      <button class="fav-btn">
+        ${last.favorite ? "⭐" : "☆"}
+      </button>
+
+    </div>
+
+    <div class="last-meta">
+      Lagt til ${formatDate(last.createdAt)}
+    </div>
+
+    <div class="last-meta">
+      Registrert ${last.count || 1} ganger
+    </div>
+  `;
+
+  // ⭐ toggle favorite
+  const btn = lastCarDiv.querySelector(".fav-btn");
+
+  if (btn) {
+    btn.addEventListener("click", () => {
+      last.favorite = !last.favorite;
+      saveCars();
+      render();
+    });
+  }
+}
 
   const last = sorted[0];
 
@@ -293,16 +333,24 @@ function renderLastCar() {
     </div>
   `;
 }
+
+function toggleFavorite(car) {
+  car.favorite = !car.favorite;
+  saveCars();
+  render();
+}
 /* ================= RENDER ================= */
 function formatDate(t) {
   return new Date(t).toLocaleString("no-NO");
 }
 
 function render() {
+
   let filtered = [...cars];
 
   const search = searchInput.value.toLowerCase();
 
+  // 🔍 search
   if (search) {
     filtered = filtered.filter(c =>
       c.plate.toLowerCase().includes(search)
@@ -311,32 +359,65 @@ function render() {
 
   const sort = sortSelect.value;
 
-  if (sort === "newest") filtered.sort((a,b)=>b.createdAt-a.createdAt);
-  if (sort === "oldest") filtered.sort((a,b)=>a.createdAt-b.createdAt);
-  if (sort === "az") filtered.sort((a,b)=>a.plate.localeCompare(b.plate));
-  if (sort === "za") filtered.sort((a,b)=>b.plate.localeCompare(a.plate));
+  // ↕️ sort
+  if (sort === "newest")
+    filtered.sort((a, b) => b.createdAt - a.createdAt);
+
+  if (sort === "oldest")
+    filtered.sort((a, b) => a.createdAt - b.createdAt);
+
+  if (sort === "az")
+    filtered.sort((a, b) => a.plate.localeCompare(b.plate));
+
+  if (sort === "za")
+    filtered.sort((a, b) => b.plate.localeCompare(a.plate));
+
+  // ⭐ (valgfritt men nice: favoritter først)
+  if (sort === "favorite")
+    filtered.sort((a, b) => (b.favorite === true) - (a.favorite === true));
 
   stats.innerText = `Antall registreringsnummer: ${filtered.length}`;
 
   list.innerHTML = "";
 
   filtered.forEach((car) => {
+
     const div = document.createElement("div");
     div.className = "card";
 
+    const star = car.favorite ? "⭐" : "☆";
+
     div.innerHTML = `
-      <div>
-        <div class="plate">${car.plate}</div>
-        <div class="time">Lagt til: ${formatDate(car.createdAt)}</div>
-        <div class="time">Registrert ${car.count} ganger</div>
+      <div class="card-left">
+
+        <button class="fav-btn">
+          ${star}
+        </button>
+
+        <div>
+          <div class="plate">${car.plate}</div>
+          <div class="time">Lagt til: ${formatDate(car.createdAt)}</div>
+          <div class="time">Registrert ${car.count || 1} ganger</div>
+        </div>
+
       </div>
 
       <button class="delete-btn">Slett</button>
     `;
 
-    div.querySelector("button").addEventListener("click", () => {
+    // 🗑 delete
+    div.querySelector(".delete-btn").addEventListener("click", () => {
       const index = cars.indexOf(car);
       deleteCar(index);
+    });
+
+    // ⭐ favorite toggle
+    div.querySelector(".fav-btn").addEventListener("click", (e) => {
+      e.stopPropagation();
+      car.favorite = !car.favorite;
+      saveCars();
+      render();
+      renderLastCar(); // holder lastCar synk
     });
 
     list.appendChild(div);
