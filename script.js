@@ -184,6 +184,12 @@ function updateQuests(plate) {
       if (hit) q.progress += 1;
     }
 
+    else if (q.type === "tripleDigit") {
+  const match = plate.match(/(\d)\1\1/);
+  if (match) q.progress += 1;
+  done = q.progress >= q.goal;
+}
+
     // 🏁 COMPLETE CHECK (UNIFIED)
     if (q.progress >= q.goal) {
       q.completed = true;
