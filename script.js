@@ -18,11 +18,8 @@ let player = JSON.parse(localStorage.getItem("player")) || {
 
 let quests = JSON.parse(localStorage.getItem("quests"));
 
-if (!quests) {
-  quests = {
-    daily: [],
-    weekly: []
-  };
+if (!quests || !quests.daily || !quests.weekly) {
+  quests = structuredClone(questPool);
 }
 
 /* ================= SAVE ================= */
