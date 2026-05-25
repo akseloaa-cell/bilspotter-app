@@ -108,10 +108,15 @@ function updateQuests(plate) {
       done = q.progress >= q.goal;
     }
 
-    if (done) {
-      q.completed = true;
-      addXP(q.reward);
-      console.log("🏆 Quest fullført:", q.name);
+   if (done) {
+  q.completed = true;
+
+  // 🔥 FIX: sørg for full progress
+  q.progress = q.goal;
+
+  addXP(q.reward);
+  console.log("🏆 Quest fullført:", q.name);
+}
     }
   });
 
