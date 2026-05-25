@@ -23,3 +23,30 @@ export const questTemplates = {
     }
   ]
 };
+
+export const questPool = {
+  daily: [
+    {
+      id: "d1",
+      name: "Spot et skilt med DL",
+      goal: 1,
+      type: "hasDL",
+      reward: 80
+    },
+    {
+      id: "d2",
+      name: "Spot et skilt der summen av tall = 18",
+      goal: 1,
+      type: "sumEquals",
+      value: 18,
+      reward: 120
+    },
+    {
+      id: "d3",
+      name: "Spot et skilt med dobbel bokstav",
+      goal: 1,
+      type: "doubleLetters",
+      reward: 100
+    }
+  ]
+};
