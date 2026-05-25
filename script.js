@@ -357,12 +357,12 @@ function renderActiveQuest() {
   const el = document.getElementById("activeQuest");
   if (!el) return;
 
-  // 🔳 ingen valgt quest
+  // ❌ ingen active quest
   if (!activeQuest) {
     el.innerHTML = `
       <div class="quest active">
-        <div class="quest-name">🎯 Unlimited Quest</div>
-        <div class="quest-progress">Velg en quest 👇</div>
+        <div class="quest-name">🎯 Velg quest</div>
+        <div class="quest-progress">Trykk for å velge</div>
       </div>
     `;
     return;
@@ -374,8 +374,8 @@ function renderActiveQuest() {
   el.innerHTML = `
     <div class="quest active">
 
-     <div class="quest-name">
-        ${q.completed ? "✅" : "🎯"} ${activeQuest.name}
+      <div class="quest-name">
+        ${activeQuest.name}
       </div>
 
       <div class="quest-progress">
