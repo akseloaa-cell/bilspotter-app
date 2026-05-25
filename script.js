@@ -330,7 +330,10 @@ function saveActiveQuest() {
   localStorage.setItem("activeQuest", JSON.stringify(activeQuest));
 }
 
-function selectQuest(q) {
+function selectQuestFromPopup(id) {
+  const q = questChoices.find(x => x.id === id);
+  if (!q) return;
+
   activeQuest = {
     ...q,
     progress: 0,
@@ -342,24 +345,29 @@ function selectQuest(q) {
   saveActiveQuest();
   saveQuestChoices();
 
+  closeQuestPopup();
+
   renderActiveQuest();
   renderQuestChoices();
 }
 
 function renderActiveQuest() {
   const el = document.getElementById("activeQuest");
-
   if (!el) return;
 
   if (!activeQuest) {
-    el.innerHTML = "<div>Velg en quest 👇</div>";
+    el.innerHTML = `
+      <div class="active-empty">
+        🎯 Velg quest
+      </div>
+    `;
     return;
   }
 
   const p = activeQuest.progress || 0;
 
   el.innerHTML = `
-    <div class="quest">
+    <div class="active-filled">
       <div>${activeQuest.name}</div>
       <div>${p} / ${activeQuest.goal}</div>
     </div>
@@ -382,6 +390,27 @@ function renderQuestChoices() {
       <div>⭐ ${q.reward} XP</div>
     </div>
   `).join("");
+}
+
+function openQuestPopup() {
+  const el = document.getElementById("questPopup");
+  if (!el) return;
+
+  el.classList.remove("hidden");
+
+  el.innerHTML = questChoices.map(q => `
+    <div class="quest-popup-card" onclick="selectQuestFromPopup('${q.id}')">
+      <div>${q.name}</div>
+      <div>⭐ ${q.reward} XP</div>
+    </div>
+  `).join("");
+}
+
+function closeQuestPopup() {
+  const el = document.getElementById("questPopup");
+  if (!el) return;
+
+  el.classList.add("hidden");
 }
 /* ================= CAR SYSTEM ================= */
 function addCar() {
@@ -620,6 +649,11 @@ plateInput.addEventListener("input", () => {
 
 searchInput.addEventListener("input", render);
 sortSelect.addEventListener("change", render);
+
+document.getElementById("activeQuest").addEventListener("click", () => {
+  if (activeQuest) return;
+  openQuestPopup();
+});
 
 function shouldResetDaily() {
 
