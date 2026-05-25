@@ -87,19 +87,23 @@ function updateQuests(plate) {
 
     let done = false;
 
+    // 🎯 TEXT QUEST
     if (q.type === "hasText") {
-      done = analysis.hasText(q.value);
+      done = analysis.hasText?.(q.value);
     }
 
-    if (q.type === "sumEquals") {
+    // 🔢 SUM QUEST
+    else if (q.type === "sumEquals") {
       done = analysis.sum === q.value;
     }
 
-    if (q.type === "doubleLetter") {
+    // 🔠 DOUBLE LETTER
+    else if (q.type === "doubleLetter") {
       done = analysis.hasDoubleLetter;
     }
 
-    if (q.type === "countCars") {
+    // 🚗 GENERELL "spot cars" (fallback hvis ingen type)
+    else if (!q.type || q.type === "countCars") {
       q.progress = (q.progress || 0) + 1;
       done = q.progress >= q.goal;
     }
@@ -107,7 +111,7 @@ function updateQuests(plate) {
     if (done) {
       q.completed = true;
       addXP(q.reward);
-      alert("🏆 Quest fullført: " + q.name);
+      console.log("🏆 Quest fullført:", q.name);
     }
   });
 
