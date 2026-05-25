@@ -525,3 +525,29 @@ select {
   cursor: pointer;
   padding: 4px;
 }
+
+.last-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.last-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.xp-big {
+  font-size: 22px;
+  font-weight: 800;
+  color: #60a5fa;
+  white-space: nowrap;
+}
+
+.fav-btn {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
