@@ -159,6 +159,29 @@ function questHTML(q) {
   `;
 }
 
+function generateDailyQuests() {
+
+  const pool = [...questPool.daily];
+
+  const selected = [];
+
+  while (selected.length < 3 && pool.length > 0) {
+
+    const index = Math.floor(Math.random() * pool.length);
+
+    selected.push(pool.splice(index, 1)[0]);
+
+  }
+
+  quests.daily = selected.map(q => ({
+    ...q,
+    progress: 0,
+    completed: false
+  }));
+
+  saveQuests();
+}
+
 /* ================= CAR SYSTEM ================= */
 function addCar() {
   const plate = plateInput.value.trim().toUpperCase();
