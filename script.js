@@ -16,9 +16,14 @@ let player = JSON.parse(localStorage.getItem("player")) || {
   level: 1
 };
 
-let quests =
-  JSON.parse(localStorage.getItem("quests")) ||
-  structuredClone(questPool);
+let quests = JSON.parse(localStorage.getItem("quests"));
+
+if (!quests) {
+  quests = {
+    daily: [],
+    weekly: []
+  };
+}
 
 /* ================= SAVE ================= */
 function saveCars() {
@@ -207,9 +212,9 @@ function renderQuests() {
 }
 
 function questHTML(q) {
-  const progress = q.progress || 0;
-  const goal = q.goal || 1;
-  const percent = (progress / goal) * 100;
+ const progress = q.progress ?? 0;
+const goal = q.goal ?? 1;
+const percent = Math.min(100, (progress / goal) * 100 || 0);
 
   return `
     <div class="quest">
@@ -231,11 +236,13 @@ function questHTML(q) {
 function generateDailyQuests() {
   quests.daily = pickRandomQuests(questPool.daily, 2);
   saveQuests();
+  renderQuests();
 }
 
 function generateWeeklyQuests() {
   quests.weekly = pickRandomQuests(questPool.weekly, 2);
   saveQuests();
+  renderQuests();
 }
 
 function updateResetTimers() {
