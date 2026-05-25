@@ -292,4 +292,4 @@ sortSelect.addEventListener("change", render);
 render();
 renderXP();
 renderQuests();
-rederLastCar();
+renderLastCar();
