@@ -337,9 +337,12 @@ function addCar() {
   render();
   renderLastCar();
   updateQuests(plate);
-  if (has67) {
-  trigger67Wiggle();
-}
+  
+setTimeout(() => {
+  if (plate.includes("67")) {
+    trigger67Wiggle();
+  }
+}, 50);
 }
 
 function deleteCar(index) {
@@ -566,11 +569,12 @@ function trigger67Wiggle() {
   const el = document.getElementById("lastCar");
   if (!el) return;
 
-  el.classList.add("wiggle-67");
+  el.classList.remove("wiggle-67");
 
-  setTimeout(() => {
-    el.classList.remove("wiggle-67");
-  }, 1200);
+  // 🔥 tving mobil til å "reset animation state"
+  void el.offsetHeight;
+
+  el.classList.add("wiggle-67");
 }
 /* ================= INIT ================= */
 render();
