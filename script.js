@@ -530,6 +530,24 @@ if ("serviceWorker" in navigator) {
   );
 }
 
+function analyzePlate(plate) {
+
+  const letters = plate.replace(/\d/g, "");
+  const numbers = plate.replace(/\D/g, "").split("").map(Number);
+
+  const sum = numbers.reduce((a, b) => a + b, 0);
+
+  return {
+    letters,
+    numbers,
+    sum,
+    hasDL: plate.includes("DL"),
+    hasAB: plate.includes("AB"),
+    hasDoubleLetters: /(.)\1/.test(letters),
+    hasRepeatingNumbers: /(.)\1/.test(numbers.join(""))
+  };
+}
+
 /* 🚀 START */
 render();
 renderXP();
