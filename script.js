@@ -362,48 +362,56 @@ function render() {
 
   list.innerHTML = "";
 
-  filtered.forEach((car) => {
+filtered.forEach((car) => {
 
-    const div = document.createElement("div");
-    div.className = "card";
+  const div = document.createElement("div");
+  div.className = "card";
 
-    const star = car.favorite ? "⭐" : "☆";
+  div.innerHTML = `
+    <div class="card-left">
 
-    div.innerHTML = `
-      <div class="card-left">
+      <div class="plate-row">
+
+        <div class="plate">
+          ${car.plate}
+        </div>
 
         <button class="fav-btn">
-          ${star}
+          ${car.favorite ? "⭐" : "☆"}
         </button>
-
-        <div>
-          <div class="plate">${car.plate}</div>
-          <div class="time">Lagt til: ${formatDate(car.createdAt)}</div>
-          <div class="time">Registrert ${car.count || 1} ganger</div>
-        </div>
 
       </div>
 
-      <button class="delete-btn">Slett</button>
-    `;
+      <div class="time">
+        Lagt til: ${formatDate(car.createdAt)}
+      </div>
 
-    // 🗑 delete
-    div.querySelector(".delete-btn").addEventListener("click", () => {
-      const index = cars.indexOf(car);
-      deleteCar(index);
-    });
+      <div class="time">
+        Registrert ${car.count || 1} ganger
+      </div>
 
-    // ⭐ favorite toggle
-    div.querySelector(".fav-btn").addEventListener("click", (e) => {
-      e.stopPropagation();
-      car.favorite = !car.favorite;
-      saveCars();
-      render();
-      renderLastCar(); // holder lastCar synk
-    });
+    </div>
 
-    list.appendChild(div);
+    <button class="delete-btn">Slett</button>
+  `;
+
+  // 🗑 delete
+  div.querySelector(".delete-btn").addEventListener("click", () => {
+    const index = cars.indexOf(car);
+    deleteCar(index);
   });
+
+  // ⭐ favorite toggle
+  div.querySelector(".fav-btn").addEventListener("click", (e) => {
+    e.stopPropagation();
+    car.favorite = !car.favorite;
+    saveCars();
+    render();
+    renderLastCar();
+  });
+
+  list.appendChild(div);
+});
 }
 
 /* ================= EVENTS ================= */
