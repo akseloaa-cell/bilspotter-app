@@ -102,21 +102,19 @@ function updateQuests(plate) {
       done = analysis.hasDoubleLetter;
     }
 
-    // 🚗 GENERELL "spot cars" (fallback hvis ingen type)
-    else if (!q.type || q.type === "countCars") {
-      q.progress = (q.progress || 0) + 1;
-      done = q.progress >= q.goal;
-    }
-
-   if (done) {
-  q.completed = true;
-
-  // 🔥 FIX: sørg for full progress
-  q.progress = q.goal;
-
-  addXP(q.reward);
-  console.log("🏆 Quest fullført:", q.name);
+    // 🚗 COUNT QUEST
+   else if (q.type === "countCars") {
+  done = updateCountQuests(q);
 }
+
+    if (done) {
+      q.completed = true;
+
+      // 🔥 viktig: lås progress til goal
+      q.progress = q.goal;
+
+      addXP(q.reward);
+      console.log("🏆 Quest fullført:", q.name);
     }
   });
 
@@ -242,6 +240,11 @@ function updateResetTimers() {
   const wh = Math.floor((diffWeek / 1000 / 60 / 60) % 24);
 
   weeklyEl.innerText = `${d}d ${wh}t`;
+}
+
+function updateCountQuests(q) {
+  q.progress = (q.progress || 0) + 1;
+  return q.progress >= q.goal;
 }
 
 /* ================= CAR SYSTEM ================= */
