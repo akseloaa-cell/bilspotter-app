@@ -374,10 +374,8 @@ function renderActiveQuest() {
   el.innerHTML = `
     <div class="quest active">
 
-      <div class="quest-name">🎯 Unlimited Quest</div>
-
-      <div class="quest-title">
-        ${activeQuest.name}
+     <div class="quest-name">
+        ${q.completed ? "✅" : "🎯"} ${activeQuest.name}
       </div>
 
       <div class="quest-progress">
