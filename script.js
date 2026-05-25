@@ -388,15 +388,6 @@ function renderActiveQuest() {
   `;
 }
 
-  const p = activeQuest.progress || 0;
-
-  el.innerHTML = `
-    <div class="active-filled">
-      <div>${activeQuest.name}</div>
-      <div>${p} / ${activeQuest.goal}</div>
-    </div>
-  `;
-
 function renderQuestChoices() {
   const el = document.getElementById("questChoices");
 
