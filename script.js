@@ -318,6 +318,8 @@ function pickRandomQuests(pool, max) {
 function generateQuestChoices() {
   questChoices = pickRandomQuests(questPool.daily, 3);
   saveQuestChoices();
+
+  renderQuestChoices(); // 🔥 VIKTIG
 }
 
 function saveQuestChoices() {
@@ -340,7 +342,8 @@ function selectQuest(q) {
   saveActiveQuest();
   saveQuestChoices();
 
-  renderQuests();
+  renderActiveQuest();
+  renderQuestChoices();
 }
 
 function renderActiveQuest() {
@@ -662,10 +665,20 @@ render();
 renderXP();
 renderQuests();
 renderLastCar();
+
 shouldResetDaily();
 shouldResetWeekly();
+
 updateResetTimers();
 setInterval(updateResetTimers, 1000);
+
+// 🔥 UNLIMITED QUEST FIX
+if (!activeQuest) {
+  generateQuestChoices();
+}
+
+renderActiveQuest();
+renderQuestChoices();
 
 window.quests = quests;
 window.cars = cars;
