@@ -280,7 +280,7 @@ function renderLastCar() {
         <div class="last-label">SISTE REGISTRERING</div>
 
         <div class="last-plate">
-          ${last.plate}
+          ${last.plate || "?"}
         </div>
       </div>
 
@@ -299,7 +299,6 @@ function renderLastCar() {
     </div>
   `;
 
-  // ⭐ toggle favorite
   const btn = lastCarDiv.querySelector(".fav-btn");
 
   if (btn) {
@@ -309,29 +308,6 @@ function renderLastCar() {
       render();
     });
   }
-}
-
-  const last = sorted[0];
-
-  if (!last) return;
-
-  lastCarDiv.innerHTML = `
-    <div style="font-size:11px;opacity:0.7;margin-bottom:6px;">
-      SISTE REGISTRERING
-    </div>
-
-    <div class="last-plate">
-      ${last.plate || "?"}
-    </div>
-
-    <div class="last-meta">
-      Lagt til: ${last.createdAt ? formatDate(last.createdAt) : "ukjent"}
-    </div>
-
-    <div class="last-meta">
-      Registrert ${last.count || 1} ganger
-    </div>
-  `;
 }
 
 function toggleFavorite(car) {
