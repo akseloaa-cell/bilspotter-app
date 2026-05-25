@@ -310,6 +310,7 @@ function addCar() {
 
   render();
   renderLastCar();
+  updateQuests();
 }
 
 function deleteCar(index) {
