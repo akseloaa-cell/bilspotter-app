@@ -35,6 +35,17 @@ function saveQuests() {
 
 /* ================= PLATE ANALYSIS ================= */
 function analyzePlate(plate) {
+
+    if (!plate || typeof plate !== "string") {
+    return {
+      letters: "",
+      numbers: "",
+      sum: 0,
+      hasText: () => false,
+      hasDoubleLetter: false
+    };
+  }
+  
   const letters = plate.replace(/\d/g, "");
   const numbers = plate.replace(/\D/g, "").split("").map(Number);
   const sum = numbers.reduce((a, b) => a + b, 0);
@@ -130,6 +141,8 @@ for (const count of Object.values(digitCounts)) {
 /* ================= QUEST SYSTEM ================= */
 function updateQuests(plate) {
 
+    if (!plate) return; 
+  
   const analysis = analyzePlate(plate);
 
   [...quests.daily, ...quests.weekly].forEach((q) => {
