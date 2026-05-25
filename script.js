@@ -359,12 +359,34 @@ function renderActiveQuest() {
 
   if (!activeQuest) {
     el.innerHTML = `
-      <div class="active-empty">
-        🎯 Velg quest
+      <div class="quest active">
+        <div class="quest-name">🎯 Unlimited Quest</div>
+        <div class="quest-progress">Velg en quest 👇</div>
       </div>
     `;
     return;
   }
+
+  const p = activeQuest.progress || 0;
+
+  el.innerHTML = `
+    <div class="quest active">
+      <div class="quest-name">🔥 Unlimited Quest</div>
+
+      <div class="quest-progress">
+        ${activeQuest.name}
+      </div>
+
+      <div class="quest-progress">
+        ${p} / ${activeQuest.goal} • ⭐ ${activeQuest.reward} XP
+      </div>
+
+      <div class="quest-bar">
+        <div class="quest-fill" style="width:${(p / activeQuest.goal) * 100}%"></div>
+      </div>
+    </div>
+  `;
+}
 
   const p = activeQuest.progress || 0;
 
