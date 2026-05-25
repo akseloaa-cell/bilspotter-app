@@ -416,6 +416,8 @@ function addCar() {
   render();
   renderLastCar();
   updateQuests(plate);
+  renderActiveQuest();
+renderQuestChoices();
   
 setTimeout(() => {
   if (plate.includes("67")) {
