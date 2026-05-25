@@ -78,6 +78,35 @@ function renderXP() {
   xpFill.style.width = `${(player.xp / needed) * 100}%`;
 }
 
+function calculateXP(plate) {
+
+  let xp = 10; // base XP
+
+  const letters = plate.replace(/\d/g, "");
+  const numbers = plate.replace(/\D/g, "");
+
+  // 🔠 dobbel bokstav (AA, BB osv)
+  if (/(.)\1/.test(letters)) {
+    xp += 20;
+  }
+
+  // 🔢 like tall (11, 222 osv)
+  if (/(.)\1{1,}/.test(numbers)) {
+    xp += numbers.length * 10;
+  }
+
+  // 🔥 veldig kort plate = rar
+  if (plate.length <= 5) {
+    xp += 15;
+  }
+
+  // 🎯 ekstra bonus for helt like tegn
+  if (/^(.)\1+$/.test(numbers) || /^(.)\1+$/.test(letters)) {
+    xp += 50;
+  }
+
+  return xp;
+}
 /* ================= QUEST SYSTEM ================= */
 function updateQuests(plate) {
   const analysis = analyzePlate(plate);
@@ -244,7 +273,10 @@ function addCar() {
 
   saveCars();
 
-  addXP(10);
+  const xp = calculateXP(plate);
+
+addXP(xp);
+  
   updateQuests(plate);
 
   plateInput.value = "";
