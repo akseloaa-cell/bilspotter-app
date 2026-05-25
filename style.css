@@ -602,3 +602,9 @@ select {
   border: 2px solid #7c3aed;
   background: linear-gradient(135deg, #1f2937, #111827);
 }
+
+.quest-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 4px;
+}
