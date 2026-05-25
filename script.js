@@ -396,7 +396,6 @@ function renderActiveQuest() {
       <div>${p} / ${activeQuest.goal}</div>
     </div>
   `;
-}
 
 function renderQuestChoices() {
   const el = document.getElementById("questChoices");
