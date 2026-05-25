@@ -411,3 +411,21 @@ select {
   transition:
     width 0.35s ease;
 }
+
+.reset-timers {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 6px;
+
+  margin-bottom: 14px;
+}
+
+.reset-text {
+
+  font-size: 13px;
+
+  opacity: 0.7;
+}
