@@ -163,47 +163,12 @@ function questHTML(q) {
 }
 
 function generateDailyQuests() {
-
-  const pool = [...questPool.daily];
-
-  const selected = [];
-
-  while (selected.length < 3 && pool.length > 0) {
-
-    const index = Math.floor(Math.random() * pool.length);
-
-    selected.push(pool.splice(index, 1)[0]);
-
-  }
-
-  quests.daily = selected.map(q => ({
-    ...q,
-    progress: 0,
-    completed: false
-  }));
-
+  quests.daily = pickRandomQuests(questPool.daily, 2);
   saveQuests();
 }
 
 function generateWeeklyQuests() {
-
-  const pool = [...questPool.weekly];
-  const selected = [];
-
-  // velg opptil 3 weekly quests (eller færre hvis pool er liten)
-  while (selected.length < 3 && pool.length > 0) {
-
-    const index = Math.floor(Math.random() * pool.length);
-    selected.push(pool.splice(index, 1)[0]);
-
-  }
-
-  quests.weekly = selected.map(q => ({
-    ...q,
-    progress: 0,
-    completed: false
-  }));
-
+  quests.weekly = pickRandomQuests(questPool.weekly, 2);
   saveQuests();
 }
 
@@ -245,6 +210,17 @@ function updateResetTimers() {
 function updateCountQuests(q) {
   q.progress = (q.progress || 0) + 1;
   return q.progress >= q.goal;
+}
+
+function pickRandomQuests(pool, max) {
+  return [...pool]
+    .sort(() => Math.random() - 0.5)
+    .slice(0, max)
+    .map(q => ({
+      ...q,
+      progress: 0,
+      completed: false
+    }));
 }
 
 /* ================= CAR SYSTEM ================= */
