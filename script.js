@@ -357,6 +357,7 @@ function renderActiveQuest() {
   const el = document.getElementById("activeQuest");
   if (!el) return;
 
+  // 🔳 ingen valgt quest
   if (!activeQuest) {
     el.innerHTML = `
       <div class="quest active">
@@ -368,12 +369,14 @@ function renderActiveQuest() {
   }
 
   const p = activeQuest.progress || 0;
+  const percent = Math.min(100, (p / activeQuest.goal) * 100);
 
   el.innerHTML = `
     <div class="quest active">
-      <div class="quest-name">🔥 Unlimited Quest</div>
 
-      <div class="quest-progress">
+      <div class="quest-name">🎯 Unlimited Quest</div>
+
+      <div class="quest-title">
         ${activeQuest.name}
       </div>
 
@@ -382,8 +385,9 @@ function renderActiveQuest() {
       </div>
 
       <div class="quest-bar">
-        <div class="quest-fill" style="width:${(p / activeQuest.goal) * 100}%"></div>
+        <div class="quest-fill" style="width:${percent}%"></div>
       </div>
+
     </div>
   `;
 }
