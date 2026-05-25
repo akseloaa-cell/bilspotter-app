@@ -1,3 +1,5 @@
+import { quests } from "./quests.js";
+
 const plateInput = document.getElementById("plateInput");
 const addBtn = document.getElementById("addBtn");
 
