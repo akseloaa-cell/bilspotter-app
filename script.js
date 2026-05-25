@@ -373,6 +373,8 @@ renderQuests();
 renderLastCar();
 shouldResetDaily();
 shouldResetWeekly();
+updateResetTimers();
+setInterval(updateResetTimers, 1000);
 
 window.quests = quests;
 window.cars = cars;
