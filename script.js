@@ -147,41 +147,44 @@ for (const count of Object.values(digitCounts)) {
 /* ================= QUEST SYSTEM ================= */
 function updateQuests(plate) {
 
-    if (!plate) return; 
-  
+  if (!plate) return;
+
   const analysis = analyzePlate(plate);
 
   [...quests.daily, ...quests.weekly].forEach((q) => {
 
     if (q.completed) return;
 
-    let done = false;
+    // 🧠 safety
+    q.progress = q.progress || 0;
 
-    // 🚗 alltid countCars quests
+    let hit = false;
+
+    // 🚗 COUNT QUEST (always increments)
     if (q.type === "countCars") {
-      q.progress = (q.progress || 0) + 1;
-      done = q.progress >= q.goal;
+      q.progress += 1;
     }
 
-    // 🎯 hasText quests
+    // 🎯 TEXT QUEST (DL etc)
     else if (q.type === "hasText") {
-      done = analysis.hasText(q.value);
-      if (done) q.progress = q.goal;
+      hit = analysis.hasText(q.value);
+      if (hit) q.progress += 1;
     }
 
-    // 🔢 sum quests
+    // 🔢 SUM QUEST
     else if (q.type === "sumEquals") {
-      done = analysis.sum === q.value;
-      if (done) q.progress = q.goal;
+      hit = analysis.sum === q.value;
+      if (hit) q.progress += 1;
     }
 
-    // 🔠 double letter
+    // 🔠 DOUBLE LETTER QUEST
     else if (q.type === "doubleLetter") {
-      done = analysis.hasDoubleLetter;
-      if (done) q.progress = q.goal;
+      hit = analysis.hasDoubleLetter;
+      if (hit) q.progress += 1;
     }
 
-    if (done) {
+    // 🏁 COMPLETE CHECK (UNIFIED)
+    if (q.progress >= q.goal) {
       q.completed = true;
       q.progress = q.goal;
 
