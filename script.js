@@ -182,6 +182,28 @@ function generateDailyQuests() {
   saveQuests();
 }
 
+function generateWeeklyQuests() {
+
+  const pool = [...questPool.weekly];
+  const selected = [];
+
+  // velg opptil 3 weekly quests (eller færre hvis pool er liten)
+  while (selected.length < 3 && pool.length > 0) {
+
+    const index = Math.floor(Math.random() * pool.length);
+    selected.push(pool.splice(index, 1)[0]);
+
+  }
+
+  quests.weekly = selected.map(q => ({
+    ...q,
+    progress: 0,
+    completed: false
+  }));
+
+  saveQuests();
+}
+
 /* ================= CAR SYSTEM ================= */
 function addCar() {
   const plate = plateInput.value.trim().toUpperCase();
