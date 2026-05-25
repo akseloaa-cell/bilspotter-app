@@ -597,3 +597,8 @@ select {
   border-radius: 12px;
   cursor: pointer;
 }
+
+.active.quest {
+  border: 2px solid #7c3aed;
+  background: linear-gradient(135deg, #1f2937, #111827);
+}
