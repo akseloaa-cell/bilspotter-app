@@ -429,3 +429,27 @@ select {
 
   opacity: 0.7;
 }
+
+.quests-title {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  font-size: 18px;
+
+  font-weight: 700;
+
+  margin-bottom: 12px;
+}
+
+.quest-reset {
+
+  font-size: 12px;
+
+  opacity: 0.6;
+
+  font-weight: 500;
+}
