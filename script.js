@@ -32,9 +32,6 @@ let activeQuest = JSON.parse(localStorage.getItem("activeQuest")) || null;
 
 let questChoices = JSON.parse(localStorage.getItem("questChoices")) || [];
 
-if (!activeQuest && questChoices.length === 0) {
-  generateQuestChoices();
-}
 /* ================= SAVE ================= */
 function saveCars() {
   localStorage.setItem("cars", JSON.stringify(cars));
