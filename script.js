@@ -913,6 +913,16 @@ async function registerSW() {
   return reg;
 }
 
+function urlBase64ToUint8Array(base64String) {
+  const padding = '='.repeat((4 - base64String.length % 4) % 4);
+  const base64 = (base64String + padding)
+    .replace(/-/g, '+')
+    .replace(/_/g, '/');
+
+  const rawData = atob(base64);
+  return Uint8Array.from([...rawData].map(c => c.charCodeAt(0)));
+}
+
 async function setupPush() {
   const reg = await navigator.serviceWorker.ready;
 
@@ -921,12 +931,10 @@ async function setupPush() {
 
   const subscription = await reg.pushManager.subscribe({
     userVisibleOnly: true,
-    applicationServerKey: "DIN_VAPID_PUBLIC_KEY_HER"
+    applicationServerKey: urlBase64ToUint8Array("DIN_VAPID_PUBLIC_KEY_HER")
   });
 
   console.log("Push subscription:", subscription);
-
-  // senere: send til backend
 }
 
 registerSW().then(() => {
@@ -939,10 +947,5 @@ window.player = player;
 window.claimQuest = claimQuest;
 window.claimActiveQuest = claimActiveQuest;
 
-document.getElementById("activeQuest").addEventListener("click", () => {
 
-  if (activeQuest) return;
 
-  openQuestPopup();
-
-});
