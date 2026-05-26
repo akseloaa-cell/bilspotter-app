@@ -37,6 +37,9 @@ let activeQuest = JSON.parse(localStorage.getItem("activeQuest")) || null;
 
 let questChoices = JSON.parse(localStorage.getItem("questChoices")) || [];
 
+if ("Notification" in window && Notification.permission === "default") {
+  Notification.requestPermission();
+}
 /* ================= SAVE ================= */
 function saveCars() {
   localStorage.setItem("cars", JSON.stringify(cars));
