@@ -931,7 +931,7 @@ async function setupPush() {
 
   const subscription = await reg.pushManager.subscribe({
     userVisibleOnly: true,
-    applicationServerKey: urlBase64ToUint8Array("DIN_VAPID_PUBLIC_KEY_HER")
+    applicationServerKey: urlBase64ToUint8Array("BMbYF_FmOgLKZDM8kTdvY5BZihwKuMC0at3AYhj7vgJoaVwpe-mKpyCs0pOus0e1dZGK5JwSddr_MxRZm5EjgS4")
   });
 
   console.log("Push subscription:", subscription);
