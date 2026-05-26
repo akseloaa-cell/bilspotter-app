@@ -900,6 +900,36 @@ setInterval(() => {
 renderActiveQuest();
 renderQuestChoices();
 
+/* ================= PWA / PUSH ================= */
+async function registerSW() {
+  if (!("serviceWorker" in navigator)) return;
+
+  const reg = await navigator.serviceWorker.register("./service-worker.js");
+  console.log("SW registered");
+
+  return reg;
+}
+
+async function setupPush() {
+  const reg = await navigator.serviceWorker.ready;
+
+  const permission = await Notification.requestPermission();
+  if (permission !== "granted") return;
+
+  const subscription = await reg.pushManager.subscribe({
+    userVisibleOnly: true,
+    applicationServerKey: "DIN_VAPID_PUBLIC_KEY_HER"
+  });
+
+  console.log("Push subscription:", subscription);
+
+  // senere: send til backend
+}
+
+registerSW().then(() => {
+  setupPush();
+});
+
 window.quests = quests;
 window.cars = cars;
 window.player = player;
