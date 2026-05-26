@@ -12,10 +12,11 @@ firebase.initializeApp({
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
-  self.registration.showNotification(
-    payload.notification.title,
-    {
-      body: payload.notification.body
-    }
-  );
+  const title = payload.notification?.title || "Bilspotter";
+  const body = payload.notification?.body || "Ny bonanza tilgjengelig!";
+
+  self.registration.showNotification(title, {
+    body,
+    icon: "/icon.png"
+  });
 });
