@@ -90,6 +90,26 @@ function addXP(amount) {
   renderXP();
 }
 
+function showXPPopup(amount) {
+
+  const container =
+    document.getElementById("xpPopupContainer");
+
+  if (!container) return;
+
+  const popup = document.createElement("div");
+
+  popup.className = "xp-popup";
+
+  popup.innerText = `⭐ +${amount} XP`;
+
+  container.appendChild(popup);
+
+  setTimeout(() => {
+    popup.remove();
+  }, 1800);
+}
+
 function renderXP() {
   const levelEl = document.getElementById("level");
   const xpText = document.getElementById("xpText");
@@ -332,7 +352,7 @@ function claimQuest(id) {
   renderQuests();
 
   // 🔥 optional juicy feedback
-  alert(`⭐ +${q.reward} XP`);
+  showXPPopup(q.reward);
 }
 
 function generateDailyQuests() {
@@ -435,7 +455,8 @@ function claimActiveQuest() {
   if (!activeQuest) return;
 
   addXP(activeQuest.reward);
-
+ showXPPopup(activeQuest.reward);
+  
   activeQuest = null;
 
   generateQuestChoices();
