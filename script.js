@@ -431,7 +431,6 @@ function saveActiveQuest() {
 }
 
 function selectQuest(q) {
-
   activeQuest = {
     ...q,
     progress: 0,
@@ -443,7 +442,7 @@ function selectQuest(q) {
   saveActiveQuest();
   saveQuestChoices();
 
-  renderActiveQuest();
+  renderActiveQuest();   // 🔥 MANGLET OFTE
   renderQuestChoices();
 }
 
@@ -524,74 +523,45 @@ function renderActiveQuest() {
 }
 
 function renderQuestChoices() {
-
   const el = document.getElementById("questPopup");
-
   if (!el) return;
 
+  // hvis man allerede har valgt quest → skjul popup
   if (activeQuest) {
     el.classList.add("hidden");
     return;
-
-    el.innerHTML = `
-  <div class="quest-popup-content">
-
-    <div class="popup-title">
-      Velg en quest
-    </div>
-
-    ...
-`;
   }
 
   el.innerHTML = `
     <div class="quest-popup-content">
+      <div class="popup-title">Velg en quest</div>
 
       ${questChoices.map((q, index) => `
-
         <div class="quest-choice" data-index="${index}">
-
-          <div class="quest-name">
-            ${q.name}
-          </div>
-
-          <div class="quest-progress">
-            ⭐ ${q.reward} XP
-          </div>
-
+          <div class="quest-name">${q.name}</div>
+          <div class="quest-progress">⭐ ${q.reward} XP</div>
         </div>
-
       `).join("")}
-
     </div>
   `;
 
-  // 🔥 add listeners AFTER render
   el.querySelectorAll(".quest-choice").forEach(choice => {
-
     choice.addEventListener("click", () => {
-
       const index = choice.dataset.index;
-
       selectQuest(questChoices[index]);
-
       el.classList.add("hidden");
-
-      renderActiveQuest();
     });
-
   });
 }
 
 function openQuestPopup() {
+  if (activeQuest) return;
 
   const el = document.getElementById("questPopup");
-
   if (!el) return;
 
-  renderQuestChoices();
-
   el.classList.remove("hidden");
+  renderQuestChoices();
 }
 
 function closeQuestPopup() {
