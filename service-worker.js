@@ -42,3 +42,28 @@ self.addEventListener("fetch", (event) => {
     fetch(event.request).catch(() => caches.match(event.request))
   );
 });
+
+self.addEventListener("push", (event) => {
+  let data = {
+    title: "Bilspotter",
+    body: "Du har en ny utfordring!",
+  };
+
+  if (event.data) {
+    data = event.data.json();
+  }
+
+  self.registration.showNotification(data.title, {
+    body: data.body,
+    icon: "./b98ab4e3-b4bf-417e-a76a-b7bb691b1da5.png",
+    badge: "./b98ab4e3-b4bf-417e-a76a-b7bb691b1da5.png"
+  });
+});
+
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+
+  event.waitUntil(
+    clients.openWindow("./")
+  );
+});
