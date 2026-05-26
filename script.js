@@ -445,35 +445,64 @@ function renderActiveQuest() {
 }
 
 function renderQuestChoices() {
-  const el = document.getElementById("questChoices");
+
+  const el = document.getElementById("questPopup");
 
   if (!el) return;
 
   if (activeQuest) {
-    el.innerHTML = "";
+    el.classList.add("hidden");
     return;
   }
 
-  el.innerHTML = questChoices.map(q => `
-    <div class="quest-choice" onclick="selectQuest(${JSON.stringify(q).replaceAll('"','&quot;')})">
-      <div>${q.name}</div>
-      <div>⭐ ${q.reward} XP</div>
+  el.innerHTML = `
+    <div class="quest-popup-content">
+
+      ${questChoices.map((q, index) => `
+
+        <div class="quest-choice" data-index="${index}">
+
+          <div class="quest-name">
+            ${q.name}
+          </div>
+
+          <div class="quest-progress">
+            ⭐ ${q.reward} XP
+          </div>
+
+        </div>
+
+      `).join("")}
+
     </div>
-  `).join("");
+  `;
+
+  // 🔥 add listeners AFTER render
+  el.querySelectorAll(".quest-choice").forEach(choice => {
+
+    choice.addEventListener("click", () => {
+
+      const index = choice.dataset.index;
+
+      selectQuest(questChoices[index]);
+
+      el.classList.add("hidden");
+
+      renderActiveQuest();
+    });
+
+  });
 }
 
 function openQuestPopup() {
+
   const el = document.getElementById("questPopup");
+
   if (!el) return;
 
-  el.classList.remove("hidden");
+  renderQuestChoices();
 
-  el.innerHTML = questChoices.map(q => `
-    <div class="quest-popup-card" onclick="selectQuestFromPopup('${q.id}')">
-      <div>${q.name}</div>
-      <div>⭐ ${q.reward} XP</div>
-    </div>
-  `).join("");
+  el.classList.remove("hidden");
 }
 
 function closeQuestPopup() {
@@ -787,3 +816,11 @@ renderQuestChoices();
 window.quests = quests;
 window.cars = cars;
 window.player = player;
+
+document.getElementById("activeQuest").addEventListener("click", () => {
+
+  if (activeQuest) return;
+
+  openQuestPopup();
+
+});
