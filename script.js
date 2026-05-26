@@ -1,4 +1,9 @@
 import { questPool } from "./quests.js"; 
+import {
+  startBonanza,
+  updateBonanza,
+  checkBonanzaTrigger
+} from "./bonanza.js";
 
 /* ================= DOM ================= */
 const plateInput = document.getElementById("plateInput");
@@ -852,6 +857,25 @@ function trigger67Wiggle() {
 
   el.classList.add("wiggle-67");
 }
+
+function renderBonanzaUI(q) {
+  const el = document.getElementById("bonanzaCard");
+  if (!el) return;
+
+  if (!q) {
+    el.innerHTML = "";
+    return;
+  }
+
+  el.innerHTML = `
+    <div class="quest active">
+      <div class="quest-name">⚡ BONANZA</div>
+      <div class="quest-progress">
+        ${q.progress} / ${q.goal}
+      </div>
+    </div>
+  `;
+}
 /* ================= INIT ================= */
 render();
 renderXP();
@@ -864,6 +888,11 @@ shouldResetWeekly();
 updateResetTimers();
 setInterval(updateResetTimers, 1000);
 
+setInterval(() => {
+  if (checkBonanzaTrigger()) {
+    startBonanza(addXP, showXPPopup, renderBonanzaUI);
+  }
+}, 2 * 60 * 1000);
 
 renderActiveQuest();
 renderQuestChoices();
