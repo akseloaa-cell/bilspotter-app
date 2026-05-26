@@ -207,6 +207,60 @@ function updateQuests(plate) {
 
   saveQuests();
   renderQuests();
+
+  // 🔥 ACTIVE QUEST
+if (activeQuest && !activeQuest.completed) {
+
+  activeQuest.progress = activeQuest.progress || 0;
+
+  let hit = false;
+
+  if (activeQuest.type === "countCars") {
+    activeQuest.progress += 1;
+  }
+
+  else if (activeQuest.type === "hasText") {
+    hit = plate.includes(activeQuest.value);
+    if (hit) activeQuest.progress += 1;
+  }
+
+  else if (activeQuest.type === "sumEquals") {
+    hit = analysis.sum === activeQuest.value;
+    if (hit) activeQuest.progress += 1;
+  }
+
+  else if (activeQuest.type === "doubleLetter") {
+    hit = analysis.hasDoubleLetter;
+    if (hit) activeQuest.progress += 1;
+  }
+
+  else if (activeQuest.type === "tripleDigit") {
+    hit = /(\d)\1\1/.test(plate);
+    if (hit) activeQuest.progress += 1;
+  }
+
+  // 🏆 COMPLETE
+  if (activeQuest.progress >= activeQuest.goal) {
+
+    activeQuest.completed = true;
+    activeQuest.progress = activeQuest.goal;
+
+    addXP(activeQuest.reward);
+
+    // 🔥 NYE QUESTS
+    activeQuest = null;
+
+    generateQuestChoices();
+
+    saveActiveQuest();
+    saveQuestChoices();
+
+    renderQuestChoices();
+  }
+
+  saveActiveQuest();
+  renderActiveQuest();
+}
 }
 
 function renderQuests() {
