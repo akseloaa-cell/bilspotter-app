@@ -17,7 +17,7 @@ export async function enablePush() {
   if (permission !== "granted") return;
 
   const token = await getToken(messaging, {
-    vapidKey: "DIN_VAPID_KEY"
+    vapidKey: "BMbYF_FmOgLKZDM8kTdvY5BZihwKuMC0at3AYhj7vgJoaVwpe-mKpyCs0pOus0e1dZGK5JwSddr_MxRZm5EjgS4"
   });
 
   console.log("🔥 PUSH TOKEN:", token);
