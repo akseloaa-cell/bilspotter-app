@@ -608,3 +608,11 @@ select {
   font-weight: 600;
   margin-top: 4px;
 }
+
+.quest-choice {
+  background: #1f2937;
+  padding: 14px;
+  border-radius: 14px;
+  margin-top: 10px;
+  cursor: pointer;
+}
