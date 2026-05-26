@@ -897,10 +897,6 @@ shouldResetWeekly();
 updateResetTimers();
 setInterval(updateResetTimers, 1000);
 
-// 🔥 UNLIMITED QUEST FIX
-if (!activeQuest) {
-  generateQuestChoices();
-}
 
 renderActiveQuest();
 renderQuestChoices();
