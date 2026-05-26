@@ -465,7 +465,6 @@ function claimActiveQuest() {
   saveQuestChoices();
 
   renderActiveQuest();
-  renderQuestChoices();
 }
 
 function renderActiveQuest() {
