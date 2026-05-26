@@ -384,9 +384,7 @@ function saveActiveQuest() {
   localStorage.setItem("activeQuest", JSON.stringify(activeQuest));
 }
 
-function selectQuestFromPopup(id) {
-  const q = questChoices.find(x => x.id === id);
-  if (!q) return;
+function selectQuest(q) {
 
   activeQuest = {
     ...q,
@@ -399,13 +397,9 @@ function selectQuestFromPopup(id) {
   saveActiveQuest();
   saveQuestChoices();
 
-  closeQuestPopup();
-
   renderActiveQuest();
   renderQuestChoices();
 }
-
-window.selectQuestFromPopup = selectQuestFromPopup;
 
 function renderActiveQuest() {
   const el = document.getElementById("activeQuest");
