@@ -248,9 +248,7 @@ if (activeQuest && !activeQuest.completed) {
     addXP(activeQuest.reward);
 
     // 🔥 NYE QUESTS
-    activeQuest = null;
-
-    generateQuestChoices();
+    activeQuest.claimable = true;
 
     saveActiveQuest();
     saveQuestChoices();
@@ -432,37 +430,76 @@ function selectQuest(q) {
   renderQuestChoices();
 }
 
+function claimActiveQuest() {
+
+  if (!activeQuest) return;
+
+  addXP(activeQuest.reward);
+
+  activeQuest = null;
+
+  generateQuestChoices();
+
+  saveActiveQuest();
+  saveQuestChoices();
+
+  renderActiveQuest();
+  renderQuestChoices();
+}
+
 function renderActiveQuest() {
+
   const el = document.getElementById("activeQuest");
+
   if (!el) return;
 
-  // ❌ ingen active quest
+  // ❌ ingen quest valgt
   if (!activeQuest) {
+
     el.innerHTML = `
       <div class="quest active">
         <div class="quest-name">🎯 Velg quest</div>
         <div class="quest-progress">Trykk for å velge</div>
       </div>
     `;
+
     return;
   }
 
   const p = activeQuest.progress || 0;
-  const percent = Math.min(100, (p / activeQuest.goal) * 100);
+
+  const percent =
+    Math.min(100, (p / activeQuest.goal) * 100);
+
+  const canClaim =
+    activeQuest.claimable === true;
 
   el.innerHTML = `
-    <div class="quest active">
+    <div class="quest active ${canClaim ? "claim-ready" : ""}">
 
       <div class="quest-name">
         ${activeQuest.name}
       </div>
 
-      <div class="quest-progress">
-        ${p} / ${activeQuest.goal} • ⭐ ${activeQuest.reward} XP
-      </div>
+      ${
+        canClaim
+          ? `
+            <button class="claim-btn" onclick="claimActiveQuest()">
+              CLAIM ⭐ ${activeQuest.reward}
+            </button>
+          `
+          : `
+            <div class="quest-progress">
+              ${p} / ${activeQuest.goal} • ⭐ ${activeQuest.reward} XP
+            </div>
+          `
+      }
 
       <div class="quest-bar">
-        <div class="quest-fill" style="width:${percent}%"></div>
+        <div
+          class="quest-fill"
+          style="width:${percent}%">
+        </div>
       </div>
 
     </div>
@@ -852,6 +889,7 @@ window.quests = quests;
 window.cars = cars;
 window.player = player;
 window.claimQuest = claimQuest;
+window.claimActiveQuest = claimActiveQuest;
 
 document.getElementById("activeQuest").addEventListener("click", () => {
 
