@@ -200,7 +200,7 @@ function updateQuests(plate) {
       q.completed = true;
       q.progress = q.goal;
 
-      addXP(q.reward);
+      q.claimable = true;
       console.log("🏆 Quest fullført:", q.name);
     }
   });
@@ -289,6 +289,8 @@ function questHTML(q) {
     ? Math.min(100, (progress / goal) * 100)
     : 0;
 
+  const canClaim = q.claimable === true;
+  
   return `
     <div class="quest">
       <div class="quest-name">
@@ -296,14 +298,43 @@ function questHTML(q) {
       </div>
 
       <div class="quest-progress">
-        ${progress} / ${goal} • ⭐ ${q.reward} XP
-      </div>
+
+  ${
+    canClaim
+      ? `<button class="claim-btn" onclick="claimQuest('${q.id}')">
+           CLAIM ⭐ ${q.reward}
+         </button>`
+      : `${progress} / ${goal} • ⭐ ${q.reward} XP`
+  }
+
+</div>
 
       <div class="quest-bar">
         <div class="quest-fill" style="width:${percent}%"></div>
       </div>
     </div>
   `;
+}
+
+function claimQuest(id) {
+
+  const all = [...quests.daily, ...quests.weekly];
+
+  const q = all.find(q => q.id === id);
+
+  if (!q) return;
+
+  addXP(q.reward);
+
+  q.completed = true;
+  q.claimable = false;
+
+  saveQuests();
+
+  renderQuests();
+
+  // 🔥 optional juicy feedback
+  alert(`⭐ +${q.reward} XP`);
 }
 
 function generateDailyQuests() {
@@ -820,6 +851,7 @@ renderQuestChoices();
 window.quests = quests;
 window.cars = cars;
 window.player = player;
+window.claimQuest = claimQuest;
 
 document.getElementById("activeQuest").addEventListener("click", () => {
 
