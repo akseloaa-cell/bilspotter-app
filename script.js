@@ -447,6 +447,16 @@ function renderQuestChoices() {
   if (activeQuest) {
     el.classList.add("hidden");
     return;
+
+    el.innerHTML = `
+  <div class="quest-popup-content">
+
+    <div class="popup-title">
+      Velg en quest
+    </div>
+
+    ...
+`;
   }
 
   el.innerHTML = `
