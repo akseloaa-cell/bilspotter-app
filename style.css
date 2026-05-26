@@ -754,3 +754,12 @@ select {
   }
 
 }
+
+.claim-ready {
+
+  border: 2px solid #facc15;
+
+  box-shadow:
+    0 0 24px rgba(250,204,21,0.3);
+
+}
