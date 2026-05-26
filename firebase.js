@@ -7,11 +7,12 @@ import {
 
 /* ================= FIREBASE CONFIG ================= */
 const firebaseConfig = {
-  apiKey: "XXX",
-  authDomain: "XXX",
-  projectId: "XXX",
-  messagingSenderId: "XXX",
-  appId: "XXX"
+  apiKey: "AIzaSyDKKkRqNnXsoqE26lr7L9siHDmKJ67bEyI",
+  authDomain: "bilspotter.firebaseapp.com",
+  projectId: "bilspotter",
+  storageBucket: "bilspotter.firebasestorage.app",
+  messagingSenderId: "503216789907",
+  appId: "1:503216789907:web:7bfc28a12e94b95ff73066"
 };
 
 /* ================= INIT ================= */
