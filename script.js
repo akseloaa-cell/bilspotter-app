@@ -1,4 +1,4 @@
-import { questPool } from "./quests.js";
+import { questPool } from "./quests.js"; 
 
 /* ================= DOM ================= */
 const plateInput = document.getElementById("plateInput");
