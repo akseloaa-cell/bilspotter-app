@@ -4,6 +4,9 @@ import {
   updateBonanza,
   checkBonanzaTrigger
 } from "./bonanza.js";
+import { enablePush } from "./firebase.js";
+
+enablePush();
 
 /* ================= DOM ================= */
 const plateInput = document.getElementById("plateInput");
