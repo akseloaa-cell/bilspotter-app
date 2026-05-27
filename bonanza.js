@@ -1,4 +1,4 @@
-let bonanzaActive = false;
+let bonanzaActive = false; 
 let bonanzaQuest = null;
 let bonanzaTimer = null;
 let bonanzaInterval = null;
