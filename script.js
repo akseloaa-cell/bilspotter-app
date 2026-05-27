@@ -274,10 +274,7 @@ if (activeQuest && !activeQuest.completed) {
     activeQuest.completed = true;
     activeQuest.progress = activeQuest.goal;
 
-    addXP(activeQuest.reward);
-
-    // 🔥 NYE QUESTS
-    activeQuest.claimable = true;
+activeQuest.claimable = true;
 
     saveActiveQuest();
     saveQuestChoices();
@@ -590,8 +587,7 @@ function addCar() {
 
   // 1. beregn XP FØRST
   const xp = calculateXP(plate);
-
-  const has67 = plate.includes("67");
+  
   // 2. oppdater data
   const existing = cars.find(c => c.plate === plate);
 
@@ -752,6 +748,12 @@ function render() {
   if (sort === "za")
     filtered.sort((a, b) => b.plate.localeCompare(a.plate));
 
+  if (sort === "num")
+  filtered.sort((a, b) => getPlateNumber(a.plate) - getPlateNumber(b.plate));
+
+if (sort === "numDesc")
+  filtered.sort((a, b) => getPlateNumber(b.plate) - getPlateNumber(a.plate));
+  
   // ⭐ (valgfritt men nice: favoritter først)
   if (sort === "favorite")
     filtered.sort((a, b) => (b.favorite === true) - (a.favorite === true));
@@ -812,6 +814,10 @@ filtered.forEach((car) => {
 });
 }
 
+function getPlateNumber(plate) {
+  const number = String(plate || "").replace(/\D/g, "");
+  return number ? Number(number) : Number.POSITIVE_INFINITY;
+}
 /* ================= EVENTS ================= */
 addBtn.addEventListener("click", addCar);
 
@@ -847,9 +853,10 @@ function shouldResetWeekly() {
   const last = localStorage.getItem("weeklyReset");
   const now = new Date();
 
-  const monday = new Date();
-  const daysToMonday = (8 - now.getDay()) % 7 || 7;
-  monday.setDate(now.getDate() + daysToMonday);
+const monday = new Date(now);
+const daysSinceMonday = (now.getDay() + 6) % 7;
+monday.setDate(now.getDate() - daysSinceMonday);
+monday.setHours(0, 0, 0, 0);
 
   const weekId = monday.toDateString();
 
@@ -930,7 +937,7 @@ setInterval(updateResetTimers, 1000);
 
 setInterval(() => {
   if (checkBonanzaTrigger()) {
-    startBonanza(addXP, showXPPopup, renderBonanzaUI);
+   startBonanza(renderBonanzaUI);
   }
 }, 2 * 60 * 1000);
 
