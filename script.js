@@ -2,7 +2,8 @@ import { questPool } from "./quests.js";
 import {
   startBonanza,
   updateBonanza,
-  checkBonanzaTrigger
+  checkBonanzaTrigger,
+  tickBonanza
 } from "./bonanza.js";
 import { enablePush } from "./firebase.js";
 
@@ -617,6 +618,12 @@ function addCar() {
   render();
   renderLastCar();
   updateQuests(plate);
+updateBonanza(
+  plate,
+  addXP,
+  showXPPopup,
+  renderBonanzaUI
+);
   renderActiveQuest();
 renderQuestChoices();
   
@@ -864,8 +871,11 @@ function trigger67Wiggle() {
   el.classList.add("wiggle-67");
 }
 
-function renderBonanzaUI(q) {
-  const el = document.getElementById("bonanzaCard");
+function renderBonanzaUI(q, remaining = 0) {
+
+  const el =
+    document.getElementById("bonanzaCard");
+
   if (!el) return;
 
   if (!q) {
@@ -873,12 +883,36 @@ function renderBonanzaUI(q) {
     return;
   }
 
+  const minutes =
+    Math.floor(remaining / 60);
+
+  const seconds =
+    remaining % 60;
+
   el.innerHTML = `
-    <div class="quest active">
-      <div class="quest-name">⚡ BONANZA</div>
+    <div class="quest active bonanza">
+
+      <div class="quest-name">
+        ⚡ BONANZA
+      </div>
+
       <div class="quest-progress">
         ${q.progress} / ${q.goal}
       </div>
+
+      <div class="quest-progress">
+        ⏰ ${minutes}:${String(seconds).padStart(2, "0")}
+      </div>
+
+      <div class="quest-bar">
+        <div
+          class="quest-fill"
+          style="
+            width:${(q.progress / q.goal) * 100}%
+          ">
+        </div>
+      </div>
+
     </div>
   `;
 }
@@ -895,9 +929,21 @@ updateResetTimers();
 setInterval(updateResetTimers, 1000);
 
 setInterval(() => {
+  tickBonanza(renderBonanzaUI);
+}, 1000);
+
+setInterval(() => {
+
   if (checkBonanzaTrigger()) {
-    startBonanza(addXP, showXPPopup, renderBonanzaUI);
+
+    startBonanza(
+      addXP,
+      showXPPopup,
+      renderBonanzaUI
+    );
+
   }
+
 }, 2 * 60 * 1000);
 
 renderActiveQuest();
