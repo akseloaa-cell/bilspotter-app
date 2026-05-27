@@ -12,11 +12,25 @@ firebase.initializeApp({
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
-  const title = payload.notification?.title || "Bilspotter";
-  const body = payload.notification?.body || "Ny bonanza tilgjengelig!";
+
+  const title =
+    payload.notification?.title || "Bilspotter";
+
+  const body =
+    payload.notification?.body || "Ny bonanza tilgjengelig!";
 
   self.registration.showNotification(title, {
     body,
     icon: "/b98ab4e3-b4bf-417e-a76a-b7bb691b1da5.png"
   });
+});
+
+/* 🔥 OPEN APP ON CLICK */
+self.addEventListener("notificationclick", (event) => {
+
+  event.notification.close();
+
+  event.waitUntil(
+    clients.openWindow("/")
+  );
 });
