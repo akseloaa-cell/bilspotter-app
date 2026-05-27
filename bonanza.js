@@ -98,4 +98,4 @@ export function checkBonanzaTrigger() {
   if (bonanzaActive) return false;
 
   return Math.random() < 0.05;
-}
+} 
