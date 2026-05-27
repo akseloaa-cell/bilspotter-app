@@ -929,21 +929,9 @@ updateResetTimers();
 setInterval(updateResetTimers, 1000);
 
 setInterval(() => {
-  tickBonanza(renderBonanzaUI);
-}, 1000);
-
-setInterval(() => {
-
   if (checkBonanzaTrigger()) {
-
-    startBonanza(
-      addXP,
-      showXPPopup,
-      renderBonanzaUI
-    );
-
+    startBonanza(addXP, showXPPopup, renderBonanzaUI);
   }
-
 }, 2 * 60 * 1000);
 
 renderActiveQuest();
