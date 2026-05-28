@@ -92,5 +92,6 @@ export const questPool = {
       value: ["FE", "CD"],
       goal: 1,
       reward: 1000
+    }
   ]
 };
