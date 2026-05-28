@@ -57,7 +57,7 @@ export const questPool = {
   name: "😎 Bli en Player (KJ)",
   type: "hasText",
   value: "KJ",
-  goal: 5,
+  goal: 4,
   reward: 150
     },
     {
@@ -65,6 +65,13 @@ export const questPool = {
       name: "Bil fra Drammen (K + EFHJKLNPRS)",
       type: "hasText",
       value: ["KE", "KF", "KH", "KJ", "KK", "KL", "KN", "KP", "KR", "KS"],
+      goal: 7,
+      reward: 200
+    },
+    {
+      id: "d10",
+      name: "Speilet (Symmetrisk Tall)",
+      type: "palindrome",
       goal: 1,
       reward: 200
     }
