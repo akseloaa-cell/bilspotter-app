@@ -49,7 +49,7 @@ export const questPool = {
       name: "Finn 67",
       type: "hasText",
       value: "67",
-      goal: 1,
+      goal: 2,
       reward: 167
     },
     {
@@ -87,10 +87,10 @@ export const questPool = {
     },
     {
       id: "w2",
-      name: "Spot 3 DL-skilt",
+      name: "Spot 7 DL-skilt",
       type: "hasText",
       value: "DL",
-      goal: 3,
+      goal: 7,
       reward: 500
     },
     {
