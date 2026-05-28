@@ -60,26 +60,63 @@ function saveQuests() {
 /* ================= PLATE ANALYSIS ================= */
 function analyzePlate(plate) {
 
-    if (!plate || typeof plate !== "string") {
+  if (!plate || typeof plate !== "string") {
     return {
       letters: "",
-      numbers: "",
+      numbers: [],
+      numberString: "",
       sum: 0,
       hasText: () => false,
-      hasDoubleLetter: false
+      hasDoubleLetter: false,
+      isPalindrome: false
     };
   }
-  
-  const letters = plate.replace(/\d/g, "");
-  const numbers = plate.replace(/\D/g, "").split("").map(Number);
-  const sum = numbers.reduce((a, b) => a + b, 0);
+
+  const upperPlate = plate.toUpperCase();
+
+  const letters =
+    upperPlate.replace(/\d/g, "");
+
+  const numberString =
+    upperPlate.replace(/\D/g, "");
+
+  const numbers =
+    numberString
+      .split("")
+      .map(Number);
+
+  const sum =
+    numbers.reduce((a, b) => a + b, 0);
+
+  const isPalindrome =
+    numberString.length > 1 &&
+    numberString ===
+      numberString
+        .split("")
+        .reverse()
+        .join("");
 
   return {
     letters,
     numbers,
+    numberString,
     sum,
-    hasText: (txt) => plate.includes(txt),
-    hasDoubleLetter: /(.)\1/.test(letters)
+
+    hasText: (txt) => {
+      if (Array.isArray(txt)) {
+        return txt.some(v =>
+          upperPlate.includes(v.toUpperCase())
+        );
+      }
+
+      return upperPlate.includes(
+        txt.toUpperCase()
+      );
+    },
+
+    hasDoubleLetter: /(.)\1/.test(letters),
+
+    isPalindrome
   };
 }
 
@@ -144,6 +181,17 @@ if (numbers.includes("67")) {
   
   let xp = 10; // base XP
 
+  const numberString = numbers;
+
+const isPalindrome =
+  numberString.length > 1 &&
+  numberString ===
+  numberString.split("").reverse().join("");
+
+if (isPalindrome) {
+  xp += 40;
+}
+  
   // 🔠 dobbel bokstav (AA, BB osv)
   if (/(.)\1/.test(letters)) {
     xp += 20;
@@ -214,6 +262,11 @@ function updateQuests(plate) {
   if (hit) q.progress += 1;
 }
 
+   else if (q.type === "palindrome") {
+  hit = analysis.isPalindrome;
+  if (hit) q.progress += 1;
+}
+     
     // 🔢 SUM QUEST
     else if (q.type === "sumEquals") {
       hit = analysis.sum === q.value;
@@ -275,6 +328,11 @@ else if (activeQuest.type === "hasText") {
   if (hit) activeQuest.progress += 1;
 }
 
+  else if (activeQuest.type === "palindrome") {
+  hit = analysis.isPalindrome;
+  if (hit) activeQuest.progress += 1;
+}
+    
   else if (activeQuest.type === "sumEquals") {
     hit = analysis.sum === activeQuest.value;
     if (hit) activeQuest.progress += 1;
