@@ -910,3 +910,49 @@ select {
 #lastCar {
   margin-bottom: 12px; /* juster 8–20px etter smak */
 }
+
+/* ================= LAST CAR BASE ================= */
+.last-car {
+  border-radius: 16px;
+  padding: 12px;
+  border: 2px solid transparent;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+/* ================= RARITY BORDERS ================= */
+
+.rarity-uncommon {
+  border-color: #9e9e9e;
+  box-shadow: 0 0 10px rgba(158, 158, 158, 0.3);
+}
+
+.rarity-common {
+  border-color: #4caf50;
+  box-shadow: 0 0 12px rgba(76, 175, 80, 0.35);
+}
+
+.rarity-rare {
+  border-color: #2196f3;
+  box-shadow: 0 0 14px rgba(33, 150, 243, 0.4);
+}
+
+.rarity-epic {
+  border-color: #9c27b0;
+  box-shadow: 0 0 16px rgba(156, 39, 176, 0.45);
+}
+
+.rarity-legendary {
+  border-color: #ff9800;
+  box-shadow: 0 0 18px rgba(255, 152, 0, 0.5);
+}
+
+.rarity-mythic {
+  border-color: gold;
+  box-shadow: 0 0 22px rgba(255, 215, 0, 0.7);
+}
+
+.last-car {
+  backdrop-filter: blur(6px);
+  background: rgba(0,0,0,0.35);
+}
