@@ -256,17 +256,23 @@ if (activeQuest && !activeQuest.completed) {
     activeQuest.progress += 1;
   }
 
-else if (q.type === "hasText") {
+else if (activeQuest.type === "hasText") {
 
-  if (Array.isArray(q.value)) {
-    hit = q.value.some(v =>
-      plate.includes(v)
+  if (Array.isArray(activeQuest.value)) {
+
+    hit = activeQuest.value.some(v =>
+      plate.toUpperCase().includes(v.toUpperCase())
     );
+
   } else {
-    hit = plate.includes(q.value);
+
+    hit = plate
+      .toUpperCase()
+      .includes(activeQuest.value.toUpperCase());
+
   }
 
-  if (hit) q.progress += 1;
+  if (hit) activeQuest.progress += 1;
 }
 
   else if (activeQuest.type === "sumEquals") {
