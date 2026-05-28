@@ -59,7 +59,14 @@ export const questPool = {
   value: "KJ",
   goal: 5,
   reward: 150
-}
+    },
+    {
+      id: "d9",
+      name: "Bil fra Drammen (K + EFHJKLNPRS)",
+      type: "hasText",
+      value: ["KE", "KF", "KH", "KJ", "KK", "KL", "KN", "KP", "KR", "KS"],
+      goal: 1,
+      reward: 200
   ],
 
   weekly: [
