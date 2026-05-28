@@ -68,7 +68,7 @@ export const questPool = {
       name: "Spot 300 biler",
       type: "countCars",
       goal: 300,
-      reward: 500
+      reward: 1000
     },
     {
       id: "w2",
@@ -77,6 +77,13 @@ export const questPool = {
       value: "DL",
       goal: 3,
       reward: 500
-    }
+    },
+    {
+      id: "w3",
+      name: "Finn en forsvars- eller ambassadebil (FE-CD)",
+      type: "hastext",
+      value: ["FE", "CD"],
+      goal: 1,
+      reward: 1000
   ]
 };
