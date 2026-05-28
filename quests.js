@@ -27,7 +27,7 @@ export const questPool = {
       name: "Summen av tall = 18",
       type: "sumEquals",
       value: 18,
-      goal: 1,
+      goal: 3,
       reward: 120
     },
     {
