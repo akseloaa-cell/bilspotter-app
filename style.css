@@ -907,3 +907,6 @@ select {
   font-weight: bold;
 }
 
+#lastCar {
+  margin-bottom: 12px; /* juster 8–20px etter smak */
+}
