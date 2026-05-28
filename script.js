@@ -88,13 +88,10 @@ function analyzePlate(plate) {
   const sum =
     numbers.reduce((a, b) => a + b, 0);
 
-  const isPalindrome =
-    numberString.length > 1 &&
-    numberString ===
-      numberString
-        .split("")
-        .reverse()
-        .join("");
+const isPalindrome =
+  numberString.length === 5 &&
+  numberString ===
+    numberString.split("").reverse().join("");
 
   return {
     letters,
@@ -184,9 +181,9 @@ if (numbers.includes("67")) {
   const numberString = numbers;
 
 const isPalindrome =
-  numberString.length > 1 &&
+  numberString.length === 5 &&
   numberString ===
-  numberString.split("").reverse().join("");
+    numberString.split("").reverse().join("");
 
 if (isPalindrome) {
   xp += 40;
