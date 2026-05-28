@@ -1021,7 +1021,19 @@ plateInput.addEventListener("keypress", (e) => {
 });
 
 plateInput.addEventListener("input", () => {
-  plateInput.value = formatPlateInput(plateInput.value);
+  const value = plateInput.value.toUpperCase();
+
+  plateInput.value = value;
+
+  // tell bokstaver (A–Z)
+  const letters = value.replace(/[^A-Z]/g, "");
+
+  // bytt tastatur etter 2 bokstaver
+  if (letters.length >= 2) {
+    plateInput.inputMode = "numeric";
+  } else {
+    plateInput.inputMode = "text";
+  }
 });
 
 searchInput.addEventListener("input", render);
