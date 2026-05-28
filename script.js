@@ -788,6 +788,7 @@ function renderLastCar() {
 
   if (cars.length === 0) {
     lastCarDiv.innerHTML = "";
+    lastCarDiv.className = "";
     return;
   }
 
@@ -795,63 +796,72 @@ function renderLastCar() {
     car.createdAt > latest.createdAt ? car : latest
   );
 
-lastCarDiv.innerHTML = `
-  <div class="last-header">
+  const rarity = last.rarity || "uncommon";
 
-    <div class="last-left">
+  // 🎨 sett class på container (farge styling)
+  lastCarDiv.className = `last-car rarity-${rarity}`;
 
-      <div class="last-label">SISTE REGISTRERING</div>
+  lastCarDiv.innerHTML = `
+    <div class="last-header">
 
-      <div class="plate-row">
+      <div class="rarity-badge rarity-${rarity}">
+        ${rarity.toUpperCase()}
+      </div>
 
-        <div class="last-plate">
-          ${last.plate || "?"}
+      <div class="last-left">
+
+        <div class="last-label">SISTE REGISTRERING</div>
+
+        <div class="plate-row">
+
+          <div class="last-plate">
+            ${last.plate || "?"}
+          </div>
+
+          <button class="fav-btn">
+            ${last.favorite ? "⭐" : "☆"}
+          </button>
+
         </div>
 
-        <button class="fav-btn">
-          ${last.favorite ? "⭐" : "☆"}
-        </button>
+      </div>
 
+      <div class="xp-big">
+        +${last.xp || 10} XP
       </div>
 
     </div>
 
-    <div class="xp-big">
-      +${last.xp || 10} XP
+    <div class="last-meta">
+      Lagt til ${formatDate(last.createdAt)}
     </div>
 
-  </div>
+    <div class="last-meta">
+      Registrert ${last.count || 1} ganger
+    </div>
+  `;
 
-  <div class="last-meta">
-    Lagt til ${formatDate(last.createdAt)}
-  </div>
+  const btn = lastCarDiv.querySelector(".fav-btn");
 
-  <div class="last-meta">
-    Registrert ${last.count || 1} ganger
-  </div>
-`;
+  if (btn) {
+    btn.addEventListener("click", () => {
 
- const btn = lastCarDiv.querySelector(".fav-btn");
+      // 🔍 finn ekte objekt i cars-array
+      const car = cars.find(c =>
+        c.plate === last.plate &&
+        c.createdAt === last.createdAt
+      );
 
-if (btn) {
-  btn.addEventListener("click", () => {
+      if (!car) return;
 
-    // 🔍 finn ekte objekt i cars-array
-    const car = cars.find(c =>
-      c.plate === last.plate &&
-      c.createdAt === last.createdAt
-    );
+      car.favorite = !car.favorite;
 
-    if (!car) return;
+      saveCars();
 
-    car.favorite = !car.favorite;
-
-    saveCars();
-
-    render();          // oppdater liste
-    renderLastCar();   // oppdater last card
-  });
-}
+      render();
+      renderLastCar();
+    });
+  }
 }
 
 function toggleFavorite(car) {
