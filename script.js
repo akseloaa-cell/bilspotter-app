@@ -201,10 +201,18 @@ function updateQuests(plate) {
     }
 
     // 🎯 TEXT QUEST
-    else if (q.type === "hasText") {
-      hit = plate.includes(q.value);
-      if (hit) q.progress += 1;
-    }
+ else if (q.type === "hasText") {
+
+  if (Array.isArray(q.value)) {
+    hit = q.value.some(v =>
+      plate.includes(v)
+    );
+  } else {
+    hit = plate.includes(q.value);
+  }
+
+  if (hit) q.progress += 1;
+}
 
     // 🔢 SUM QUEST
     else if (q.type === "sumEquals") {
@@ -248,10 +256,18 @@ if (activeQuest && !activeQuest.completed) {
     activeQuest.progress += 1;
   }
 
-  else if (activeQuest.type === "hasText") {
-    hit = plate.includes(activeQuest.value);
-    if (hit) activeQuest.progress += 1;
+else if (q.type === "hasText") {
+
+  if (Array.isArray(q.value)) {
+    hit = q.value.some(v =>
+      plate.includes(v)
+    );
+  } else {
+    hit = plate.includes(q.value);
   }
+
+  if (hit) q.progress += 1;
+}
 
   else if (activeQuest.type === "sumEquals") {
     hit = analysis.sum === activeQuest.value;
