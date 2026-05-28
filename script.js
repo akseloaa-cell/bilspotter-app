@@ -117,6 +117,73 @@ const isPalindrome =
   };
 }
 
+function getPlateRarity(plate) {
+
+  const analysis = analyzePlate(plate);
+
+  const letters = analysis.letters;
+  const numbers = analysis.numberString;
+
+  const hasDoubleLetter = /(.)\1/.test(letters);
+  const hasTripleDigit = /(\d)\1\1/.test(numbers);
+  const hasFourDigits = /(\d)\1\1\1/.test(numbers);
+  const hasFiveSameDigits = /^(\d)\1{4}$/.test(numbers);
+
+  const isPalindrome =
+    numbers.length === 5 &&
+    numbers === numbers.split("").reverse().join("");
+
+  const has67 = numbers.includes("67");
+  const hasTwo67 = numbers.split("67").length - 1 >= 2;
+
+  const sum = analysis.sum;
+
+  // 🔥 MYTHIC (må sjekkes først)
+  if (
+    (hasFiveSameDigits && hasDoubleLetter) ||
+    (hasDoubleLetter && numbers === "67676")
+  ) {
+    return "mythic";
+  }
+
+  // 🟠 LEGENDARY
+  if (
+    hasFiveSameDigits ||
+    (isPalindrome && hasDoubleLetter) ||
+    numbers === "67676"
+  ) {
+    return "legendary";
+  }
+
+  // 🟣 EPIC
+  if (
+    isPalindrome ||
+    hasFourDigits ||
+    hasTwo67
+  ) {
+    return "epic";
+  }
+
+  // 🔵 RARE
+  if (
+    hasDoubleLetter ||
+    hasTripleDigit ||
+    sum <= 10 || sum >= 40
+  ) {
+    return "rare";
+  }
+
+  // 🟢 COMMON
+  if (
+    has67 ||
+    /(\d)\1/.test(numbers)
+  ) {
+    return "common";
+  }
+
+  // ⚪ UNCOMMON (default)
+  return "uncommon";
+}
 /* ================= XP SYSTEM ================= */
 function addXP(amount) {
   player.xp += amount;
