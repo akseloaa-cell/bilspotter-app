@@ -67,6 +67,7 @@ export const questPool = {
       value: ["KE", "KF", "KH", "KJ", "KK", "KL", "KN", "KP", "KR", "KS"],
       goal: 1,
       reward: 200
+    }
   ],
 
   weekly: [
