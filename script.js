@@ -745,6 +745,7 @@ function addCar() {
       count: 1,
       xp: xp,
       favorite: false
+      rarity: getPlateRarity(plate)
     });
   }
 
