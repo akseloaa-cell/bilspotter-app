@@ -744,7 +744,7 @@ function addCar() {
       createdAt: Date.now(),
       count: 1,
       xp: xp,
-      favorite: false
+      favorite: false,
       rarity: getPlateRarity(plate)
     });
   }
