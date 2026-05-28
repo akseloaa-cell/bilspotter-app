@@ -130,7 +130,7 @@ function getPlateRarity(plate) {
     numbers === numbers.split("").reverse().join("");
 
   const has67 = numbers.includes("67");
-  const hasTwo67 = numbers.split("67").length - 1 >= 2;
+  const hasTwo67 = (numbers.match(/67/g) || []).length >= 2;
 
   const sum = analysis.sum;
 
@@ -313,10 +313,10 @@ function updateQuests(plate) {
 
   if (Array.isArray(q.value)) {
     hit = q.value.some(v =>
-      plate.includes(v)
+      analysis.hasText(v)
     );
   } else {
-    hit = plate.includes(q.value);
+    hit = analysis.hasText(q.value);
   }
 
   if (hit) q.progress += 1;
@@ -341,7 +341,7 @@ function updateQuests(plate) {
 
     // 🔢 TRIPLE DIGIT
     else if (q.type === "tripleDigit") {
-      hit = /(\d)\1\1/.test(plate);
+      hit = /(\d)\1\1/.test(analysis.numberString);
       if (hit) q.progress += 1;
     }
 
@@ -404,7 +404,7 @@ else if (activeQuest.type === "hasText") {
   }
 
   else if (activeQuest.type === "tripleDigit") {
-    hit = /(\d)\1\1/.test(plate);
+    hit = /(\d)\1\1/.test(analysis.numberString);
     if (hit) activeQuest.progress += 1;
   }
 
@@ -796,7 +796,8 @@ function renderLastCar() {
   const rarity = last.rarity || "uncommon";
 
   // 🎨 sett class på container (farge styling)
-  lastCarDiv.className = `last-car rarity-${rarity}`;
+ lastCarDiv.classList.remove(...lastCarDiv.classList);
+lastCarDiv.classList.add("last-car", `rarity-${rarity}`);
 
   lastCarDiv.innerHTML = `
     <div class="last-header">
