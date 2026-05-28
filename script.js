@@ -99,18 +99,14 @@ const isPalindrome =
     numberString,
     sum,
 
-    hasText: (txt) => {
-      if (Array.isArray(txt)) {
-        return txt.some(v =>
-          upperPlate.includes(v.toUpperCase())
-        );
-      }
+hasText: (txt) => {
+  return letters.includes(txt.toUpperCase());
+},
 
-      return upperPlate.includes(
-        txt.toUpperCase()
-      );
-    },
-
+    hasNumber: (num) => {
+  return numberString.includes(String(num));
+},
+    
     hasDoubleLetter: /(.)\1/.test(letters),
 
     isPalindrome
