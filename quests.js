@@ -5,14 +5,14 @@ export const questPool = {
       name: "Spot 50 biler",
       type: "countCars",
       goal: 50,
-      reward: 100
+      reward: 300
     },
     {
       id: "d2",
       name: "Spot 30 biler",
       type: "countCars",
       goal: 30,
-      reward: 80
+      reward: 150
     },
     {
       id: "d3",
@@ -20,7 +20,7 @@ export const questPool = {
       type: "hasText",
       value: "DL",
       goal: 1,
-      reward: 150
+      reward: 200
     },
     {
       id: "d4",
@@ -51,7 +51,15 @@ export const questPool = {
       value: "67",
       goal: 1,
       reward: 167
-    }
+    },
+    {
+  id: "d8",
+  name: "😎 Bli en Player (KJ)",
+  type: "hasText",
+  value: "KJ",
+  goal: 5,
+  reward: 150
+}
   ],
 
   weekly: [
