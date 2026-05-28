@@ -96,7 +96,7 @@ export const questPool = {
     {
       id: "w3",
       name: "Finn en forsvars- eller ambassadebil (FE-CD)",
-      type: "hastext",
+      type: "hasText",
       value: ["FE", "CD"],
       goal: 1,
       reward: 1000
