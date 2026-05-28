@@ -180,6 +180,41 @@ function getPlateRarity(plate) {
   // ⚪ UNCOMMON (default)
   return "uncommon";
 }
+
+function validatePlateInput(input) {
+  const plate = input.trim().toUpperCase();
+
+  const standardPattern = /^[A-Z]{2}\s?\d{5}$/;
+  const customPattern = /^CUSTOM:/;
+
+  if (standardPattern.test(plate)) {
+    return { valid: true, type: "standard", plate };
+  }
+
+  if (customPattern.test(plate)) {
+    return { valid: true, type: "custom", plate: plate.replace("CUSTOM:", "").trim() };
+  }
+
+  return { valid: false };
+}
+
+function formatPlateInput(value) {
+  let v = value.toUpperCase().replace(/[^A-Z0-9]/g, "");
+
+  // STANDARD: 2 bokstaver + 5 tall
+  const match = v.match(/^([A-Z]{0,2})(\d{0,5})/);
+
+  if (!match) return v;
+
+  const letters = match[1] || "";
+  const numbers = match[2] || "";
+
+  if (numbers.length > 0) {
+    return `${letters} ${numbers}`;
+  }
+
+  return letters;
+}
 /* ================= XP SYSTEM ================= */
 function addXP(amount) {
   player.xp += amount;
@@ -722,8 +757,15 @@ function closeQuestPopup() {
 /* ================= CAR SYSTEM ================= */
 function addCar() {
 
-  const plate = plateInput.value.trim().toUpperCase();
-  if (!plate) return;
+  const result = validatePlateInput(plateInput.value);
+
+if (!result.valid) {
+  alert("Ugyldig skiltformat!");
+  return;
+}
+
+const plate = result.plate;
+const isCustom = result.type === "custom";
 
   // 1. beregn XP FØRST
   const xp = calculateXP(plate);
@@ -736,13 +778,14 @@ function addCar() {
     existing.createdAt = Date.now();
   } else {
     cars.push({
-      plate,
-      createdAt: Date.now(),
-      count: 1,
-      xp: xp,
-      favorite: false,
-      rarity: getPlateRarity(plate)
-    });
+  plate,
+  createdAt: Date.now(),
+  count: 1,
+  xp: xp,
+  favorite: false,
+  rarity: getPlateRarity(plate),
+  custom: isCustom
+});
   }
 
   // 3. gi XP til player
@@ -978,7 +1021,7 @@ plateInput.addEventListener("keypress", (e) => {
 });
 
 plateInput.addEventListener("input", () => {
-  plateInput.value = plateInput.value.toUpperCase();
+  plateInput.value = formatPlateInput(plateInput.value);
 });
 
 searchInput.addEventListener("input", render);
