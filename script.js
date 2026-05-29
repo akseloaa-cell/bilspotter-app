@@ -357,6 +357,19 @@ function updateQuests(plate) {
   if (hit) q.progress += 1;
 }
 
+   else if (q.type === "hasNumber") {
+
+  if (Array.isArray(q.value)) {
+    hit = q.value.some(v =>
+      analysis.numberString.includes(String(v))
+    );
+  } else {
+    hit = analysis.numberString.includes(String(q.value));
+  }
+
+  if (hit) q.progress += 1;
+}
+     
    else if (q.type === "palindrome") {
   hit = analysis.isPalindrome;
   if (hit) q.progress += 1;
@@ -433,6 +446,19 @@ else if (activeQuest.type === "hasText") {
   if (hit) activeQuest.progress += 1;
 }
 
+  else if (activeQuest.type === "hasNumber") {
+
+  if (Array.isArray(activeQuest.value)) {
+    hit = activeQuest.value.some(v =>
+      analysis.numberString.includes(String(v))
+    );
+  } else {
+    hit = analysis.numberString.includes(String(activeQuest.value));
+  }
+
+  if (hit) activeQuest.progress += 1;
+}
+    
   else if (activeQuest.type === "palindrome") {
   hit = analysis.isPalindrome;
   if (hit) activeQuest.progress += 1;
