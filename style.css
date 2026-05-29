@@ -956,3 +956,43 @@ select {
   backdrop-filter: blur(6px);
   background: rgba(0,0,0,0.35);
 }
+
+/* HEADER LAYOUT */
+.last-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+/* VENSTRE SIDE */
+.last-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* HØYRE SIDE (VIKTIG FIX) */
+.last-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+/* RARITY BADGE */
+.rarity-badge {
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+/* XP */
+.xp-big {
+  font-size: 18px;
+  font-weight: 700;
+  text-align: right;
+}
