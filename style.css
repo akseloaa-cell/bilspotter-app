@@ -551,12 +551,6 @@ select {
   cursor: pointer;
 }
 
-.xp-big {
-  font-size: 22px;
-  font-weight: 800;
-  color: #60a5fa;
-  white-space: nowrap;
-}
 
 @keyframes wiggle67 {
   0%   { transform: rotate(0deg) translateY(0px); }
@@ -902,11 +896,6 @@ select {
   font-weight: bold;
 }
 
-.xp-big {
-  font-size: 20px;
-  font-weight: bold;
-}
-
 #lastCar {
   margin-bottom: 12px; /* juster 8–20px etter smak */
 }
@@ -992,8 +981,8 @@ select {
 
 /* XP */
 .xp-big {
+  margin-top: 10px; /* 👈 skyver XP lenger ned */
   font-size: 18px;
   font-weight: 700;
   text-align: right;
-  margin-top: 10px:
 }
