@@ -1041,14 +1041,32 @@ plateInput.addEventListener("keypress", (e) => {
 });
 
 plateInput.addEventListener("input", () => {
-  const value = plateInput.value.toUpperCase();
 
-  plateInput.value = value;
+  // 🔥 fjern alt som ikke er bokstav/tall
+  let raw = plateInput.value
+    .toUpperCase()
+    .replace(/[^A-Z0-9]/g, "");
 
-  // tell bokstaver (A–Z)
-  const letters = value.replace(/[^A-Z]/g, "");
+  // 🔠 maks 2 bokstaver først
+  let letters = raw
+    .replace(/[^A-Z]/g, "")
+    .slice(0, 2);
 
-  // bytt tastatur etter 2 bokstaver
+  // 🔢 resten blir tall
+  let numbers = raw
+    .replace(/[^0-9]/g, "")
+    .slice(0, 5);
+
+  // ✨ lag format
+  let formatted = letters;
+
+  if (numbers.length > 0) {
+    formatted += " " + numbers;
+  }
+
+  plateInput.value = formatted;
+
+  // 📱 bytt tastatur etter 2 bokstaver
   if (letters.length >= 2) {
     plateInput.inputMode = "numeric";
   } else {
