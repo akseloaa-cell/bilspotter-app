@@ -839,7 +839,14 @@ const isCustom = result.type === "custom";
 
   saveCars();
 
-  plateInput.value = "";
+ plateInput.value = "";
+
+// 🔥 reset keyboard tilbake til bokstaver
+plateInput.setAttribute("inputmode", "text");
+
+setTimeout(() => {
+  plateInput.focus();
+}, 10);
 
   render();
   renderLastCar();
@@ -1068,35 +1075,34 @@ plateInput.addEventListener("keypress", (e) => {
 
 plateInput.addEventListener("input", () => {
 
-  // 🔥 fjern alt som ikke er bokstav/tall
-  let raw = plateInput.value
-    .toUpperCase()
-    .replace(/[^A-Z0-9]/g, "");
+  let value =
+    plateInput.value.toUpperCase()
+      .replace(/[^A-Z0-9 ]/g, "");
 
-  // 🔠 maks 2 bokstaver først
-  let letters = raw
-    .replace(/[^A-Z]/g, "")
-    .slice(0, 2);
+  // 🔥 customskilt med mellomrom beholdes
+  if (!value.includes(" ")) {
 
-  // 🔢 resten blir tall
-  let numbers = raw
-    .replace(/[^0-9]/g, "")
-    .slice(0, 5);
+    const letters =
+      value.replace(/[^A-Z]/g, "").slice(0, 2);
 
-  // ✨ lag format
-  let formatted = letters;
+    const numbers =
+      value.replace(/\D/g, "").slice(0, 5);
 
-  if (numbers.length > 0) {
-    formatted += " " + numbers;
+    value =
+      letters +
+      (numbers ? " " + numbers : "");
   }
 
-  plateInput.value = formatted;
+  plateInput.value = value;
 
-  // 📱 bytt tastatur etter 2 bokstaver
-  if (letters.length >= 2) {
-    plateInput.inputMode = "numeric";
+  // 🔥 keyboard switching
+  const letterCount =
+    value.replace(/[^A-Z]/g, "").length;
+
+  if (letterCount >= 2) {
+    plateInput.setAttribute("inputmode", "numeric");
   } else {
-    plateInput.inputMode = "text";
+    plateInput.setAttribute("inputmode", "text");
   }
 });
 
