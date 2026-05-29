@@ -981,7 +981,7 @@ select {
 
 /* XP */
 .xp-big {
-  margin-top: 10px; /* 👈 skyver XP lenger ned */
+  margin-top: 20px; /* 👈 skyver XP lenger ned */
   font-size: 18px;
   font-weight: 700;
   text-align: right;
