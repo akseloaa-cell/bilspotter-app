@@ -843,35 +843,35 @@ function renderLastCar() {
 lastCarDiv.classList.add("last-car", `rarity-${rarity}`);
 
   lastCarDiv.innerHTML = `
-    <div class="last-header">
+<div class="last-header">
 
-      <div class="rarity-badge rarity-${rarity}">
-        ${rarity.toUpperCase()}
+  <div class="last-left">
+    <div class="last-label">SISTE REGISTRERING</div>
+
+    <div class="plate-row">
+      <div class="last-plate">
+        ${last.plate || "?"}
       </div>
 
-      <div class="last-left">
-
-        <div class="last-label">SISTE REGISTRERING</div>
-
-        <div class="plate-row">
-
-          <div class="last-plate">
-            ${last.plate || "?"}
-          </div>
-
-          <button class="fav-btn">
-            ${last.favorite ? "⭐" : "☆"}
-          </button>
-
-        </div>
-
-      </div>
-
-      <div class="xp-big">
-        +${last.xp || 10} XP
-      </div>
-
+      <button class="fav-btn">
+        ${last.favorite ? "⭐" : "☆"}
+      </button>
     </div>
+  </div>
+
+  <div class="last-right">
+
+    <div class="rarity-badge rarity-${rarity}">
+      ${rarity.toUpperCase()}
+    </div>
+
+    <div class="xp-big">
+      +${last.xp || 10} XP
+    </div>
+
+  </div>
+
+</div>
 
     <div class="last-meta">
       Lagt til ${formatDate(last.createdAt)}
