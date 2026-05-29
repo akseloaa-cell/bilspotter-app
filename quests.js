@@ -82,6 +82,23 @@ export const questPool = {
       value: ["FB", "HS", "HT", "HU", "HV", "HX"],
       goal: 1,
       reward: 500
+    },
+    {
+  id: "d12",
+  name: "Summen er under 12",
+  type: "sumUnder",
+  value: 12,
+  goal: 3,
+  reward: 200
+},
+    {
+      id: "d13",
+      name: "Summen er over 33",
+      type: "sumOver",
+      value: 33,
+      goal: 3,
+      reward: 200
+    }
   ],
 
   weekly: [
@@ -107,6 +124,14 @@ export const questPool = {
       value: ["FE", "CD"],
       goal: 1,
       reward: 1000
-    }
+    },
+       {
+  id: "w12",
+  name: "Summen er over 38",
+  type: "sumOver",
+  value: 38,
+  goal: 7,
+  reward: 800
+} 
   ]
 };
