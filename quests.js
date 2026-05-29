@@ -47,7 +47,7 @@ export const questPool = {
     {
       id: "d7",
       name: "Finn 67",
-      type: "hasText",
+      type: "hasNumber",
       value: "67",
       goal: 2,
       reward: 167
