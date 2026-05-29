@@ -368,6 +368,16 @@ function updateQuests(plate) {
       if (hit) q.progress += 1;
     }
 
+      else if (q.type === "sumUnder") {
+  hit = analysis.sum < q.value;
+  if (hit) q.progress += 1;
+}
+
+        else if (q.type === "sumOver") {
+  hit = analysis.sum > q.value;
+  if (hit) q.progress += 1;
+}
+          
     // 🔠 DOUBLE LETTER
     else if (q.type === "doubleLetter") {
       hit = analysis.hasDoubleLetter;
@@ -433,6 +443,16 @@ else if (activeQuest.type === "hasText") {
     if (hit) activeQuest.progress += 1;
   }
 
+    else if (activeQuest.type === "sumUnder") {
+  hit = analysis.sum < activeQuest.value;
+  if (hit) activeQuest.progress += 1;
+}
+
+  else if (activeQuest.type === "sumOver") {
+  hit = analysis.sum > activeQuest.value;
+  if (hit) activeQuest.progress += 1;
+}
+    
   else if (activeQuest.type === "doubleLetter") {
     hit = analysis.hasDoubleLetter;
     if (hit) activeQuest.progress += 1;
