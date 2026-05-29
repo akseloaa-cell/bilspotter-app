@@ -74,7 +74,14 @@ export const questPool = {
       type: "palindrome",
       goal: 1,
       reward: 200
-    }
+    },
+    {
+      id: "d11",
+      name: "Bil fra Lillehammer (FB, H + STUVX)",
+      type: "hasText",
+      value: ["FB", "HS", "HT", "HU", "HV", "HX"],
+      goal: 1,
+      reward: 500
   ],
 
   weekly: [
